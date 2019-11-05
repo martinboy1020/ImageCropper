@@ -11,12 +11,14 @@
        android:id="@+id/btn_cropper_java"
        android:layout_width="match_parent"
        android:layout_height="60dp"
-       android:text="ImageCropperInJava"/>
+       android:text="ImageCropperInJava"
+       android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/btn_cropper_kotlin"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="ImageCropperInKotlin"/>
+        android:text="ImageCropperInKotlin"
+        android:textAllCaps="false"/>
 
 </LinearLayout>

@@ -161,6 +161,7 @@ public class ImageCropperJavaActivity extends AppCompatActivity implements CropI
         if(mProgressDialog != null) {
             mProgressDialog.dismissAllowingStateLoss();
         }
+        UploadHeadPhotoUtil.deleteTempFile(this);
     }
 
     @Override
@@ -168,5 +169,6 @@ public class ImageCropperJavaActivity extends AppCompatActivity implements CropI
         if(mProgressDialog != null) {
             mProgressDialog.dismissAllowingStateLoss();
         }
+        UploadHeadPhotoUtil.deleteTempFile(this);
     }
 }

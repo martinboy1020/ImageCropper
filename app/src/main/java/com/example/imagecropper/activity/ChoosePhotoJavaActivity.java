@@ -17,7 +17,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.example.imagecropper.R;
-import com.example.imagecropper.adapter.ChooseHeadPhotoAdapter;
+import com.example.imagecropper.adapter.ChoosePhotoJavaAdapter;
 import com.example.imagecropper.bean.HeadPhotoBean;
 import com.example.imagecropper.utils.HeadPhotoItemDecoration;
 
@@ -32,7 +32,7 @@ public class ChoosePhotoJavaActivity extends AppCompatActivity {
     private int leftRight = 15;
     private int topBottom = 15;
     private int spanCount = 3;
-    private ChooseHeadPhotoAdapter adapter;
+    private ChoosePhotoJavaAdapter adapter;
     private static int FINISH_CROP_IMAGE = 103;
     private RelativeLayout btn_back;
 
@@ -60,7 +60,7 @@ public class ChoosePhotoJavaActivity extends AppCompatActivity {
 
     private void setList(List<HeadPhotoBean> list) {
         Log.d(TAG, "headPhotoBeanList Size: " + list.size());
-        adapter = new ChooseHeadPhotoAdapter(this, list, spanCount, leftRight, topBottom);
+        adapter = new ChoosePhotoJavaAdapter(this, list, spanCount, leftRight, topBottom);
         recycler_view_choose_photo.setAdapter(adapter);
     }
 

@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.btn_cropper_kotlin -> {
-                val intent = Intent(this@MainActivity, ImageCropperKotlinActivity::class.java)
+                val intent = Intent(this@MainActivity, ChoosePhotoKotlinActivity::class.java)
                 startActivity(intent)
             }
 

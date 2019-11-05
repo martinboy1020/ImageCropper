@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Environment;
 
 import com.example.imagecropper.activity.ImageCropperJavaActivity;
+import com.example.imagecropper.activity.ImageCropperKotlinActivity;
 
 import org.apache.commons.io.FileUtils;
 
@@ -112,6 +113,11 @@ public class UploadHeadPhotoUtil {
     }
 
     public static void uploadImageToImgur(ImageCropperJavaActivity mAct, File chooseFile) {
+        UploadImageManager mUploadImageManager = UploadImageManager.getInstance();
+        mUploadImageManager.onUpload(mAct, chooseFile, "testName", "testDes", "", "", mAct);
+    }
+
+    public static void uploadImageToImgur(ImageCropperKotlinActivity mAct, File chooseFile) {
         UploadImageManager mUploadImageManager = UploadImageManager.getInstance();
         mUploadImageManager.onUpload(mAct, chooseFile, "testName", "testDes", "", "", mAct);
     }

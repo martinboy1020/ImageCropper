@@ -18,7 +18,7 @@ import com.example.imagecropper.bean.HeadPhotoBean;
 import java.io.File;
 import java.util.List;
 
-public class ChooseHeadPhotoAdapter extends RecyclerView.Adapter<ChooseHeadPhotoAdapter.ViewHolder> {
+public class ChoosePhotoJavaAdapter extends RecyclerView.Adapter<ChoosePhotoJavaAdapter.ViewHolder> {
 
     private ChoosePhotoJavaActivity mAct;
     private DisplayMetrics metrics;
@@ -26,7 +26,7 @@ public class ChooseHeadPhotoAdapter extends RecyclerView.Adapter<ChooseHeadPhoto
     private List<HeadPhotoBean> list;
     private int screenWidth, itemImgWidth, itemImgHeight;
 
-    public ChooseHeadPhotoAdapter(ChoosePhotoJavaActivity mAct, List<HeadPhotoBean> list, int spanCount, int leftRight, int topBottom) {
+    public ChoosePhotoJavaAdapter(ChoosePhotoJavaActivity mAct, List<HeadPhotoBean> list, int spanCount, int leftRight, int topBottom) {
         this.mAct = mAct;
         this.list = list;
         WindowManager manager = mAct.getWindowManager();
@@ -43,7 +43,7 @@ public class ChooseHeadPhotoAdapter extends RecyclerView.Adapter<ChooseHeadPhoto
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mAct)
                 .inflate(R.layout.choose_image_layout, parent, false);
-        return new ChooseHeadPhotoAdapter.ViewHolder(view, mAct, itemImgWidth, itemImgHeight);
+        return new ChoosePhotoJavaAdapter.ViewHolder(view, mAct, itemImgWidth, itemImgHeight);
     }
 
     @Override
