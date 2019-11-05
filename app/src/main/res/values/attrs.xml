@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="sv_CropImageView">
+        <attr name="sv_cropGuidelines">
+            <enum name="off" value="0"/>
+            <enum name="onTouch" value="1"/>
+            <enum name="on" value="2"/>
+        </attr>
+        <attr name="sv_cropScaleType">
+            <enum name="fitCenter" value="0"/>
+            <enum name="center" value="1"/>
+            <enum name="centerCrop" value="2"/>
+            <enum name="centerInside" value="3"/>
+        </attr>
+        <attr name="sv_cropShape">
+            <enum name="rectangle" value="0"/>
+            <enum name="oval" value="1"/>
+        </attr>
+        <attr name="sv_cropAutoZoomEnabled" format="boolean"/>
+        <attr name="sv_cropMaxZoom" format="integer"/>
+        <attr name="sv_cropMultiTouchEnabled" format="boolean"/>
+        <attr name="sv_cropFixAspectRatio" format="boolean"/>
+        <attr name="sv_cropAspectRatioX" format="integer"/>
+        <attr name="sv_cropAspectRatioY" format="integer"/>
+        <attr name="sv_cropInitialCropWindowPaddingRatio" format="float"/>
+        <attr name="sv_cropBorderLineThickness" format="dimension"/>
+        <attr name="sv_cropBorderLineColor" format="color"/>
+        <attr name="sv_cropBorderCornerThickness" format="dimension"/>
+        <attr name="sv_cropBorderCornerOffset" format="dimension"/>
+        <attr name="sv_cropBorderCornerLength" format="dimension"/>
+        <attr name="sv_cropBorderCornerColor" format="color"/>
+        <attr name="sv_cropGuidelinesThickness" format="dimension"/>
+        <attr name="sv_cropGuidelinesColor" format="color"/>
+        <attr name="sv_cropBackgroundColor" format="color"/>
+        <attr name="sv_cropSnapRadius" format="dimension"/>
+        <attr name="sv_cropTouchRadius" format="dimension"/>
+        <attr name="sv_cropSaveBitmapToInstanceState" format="boolean"/>
+        <attr name="sv_cropShowCropOverlay" format="boolean"/>
+        <attr name="sv_cropShowProgressBar" format="boolean"/>
+        <attr name="sv_cropMinCropWindowWidth" format="dimension"/>
+        <attr name="sv_cropMinCropWindowHeight" format="dimension"/>
+        <attr name="sv_cropMinCropResultWidthPX" format="float"/>
+        <attr name="sv_cropMinCropResultHeightPX" format="float"/>
+        <attr name="sv_cropMaxCropResultWidthPX" format="float"/>
+        <attr name="sv_cropMaxCropResultHeightPX" format="float"/>
+        <attr name="sv_cropFlipHorizontally" format="boolean"/>
+        <attr name="sv_cropFlipVertically" format="boolean"/>
+    </declare-styleable>
+
+</resources>
