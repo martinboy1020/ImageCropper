@@ -1,6 +1,6 @@
 package com.example.imagecropper.adapter;
 
-import android.net.Uri;
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -12,22 +12,23 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.imagecropper.R;
-import com.example.imagecropper.activity.ChoosePhotoJavaActivity;
 import com.example.imagecropper.bean.PhotoBean;
+import com.example.imagecropper.fragment.CropImageGalleryFragment;
 
-import java.io.File;
 import java.util.List;
 
-public class ChoosePhotoJavaAdapter extends RecyclerView.Adapter<ChoosePhotoJavaAdapter.ViewHolder> {
+public class ChooseCropPhotoJavaAdapter extends RecyclerView.Adapter<ChooseCropPhotoJavaAdapter.ViewHolder> {
 
-    private ChoosePhotoJavaActivity mAct;
+    private CropImageGalleryFragment mFragment;
+    private Activity mAct;
     private DisplayMetrics metrics;
     private int spanCount, leftRight, topBottom;
     private List<PhotoBean> list;
     private int screenWidth, itemImgWidth, itemImgHeight;
 
-    public ChoosePhotoJavaAdapter(ChoosePhotoJavaActivity mAct, List<PhotoBean> list, int spanCount, int leftRight, int topBottom) {
-        this.mAct = mAct;
+    public ChooseCropPhotoJavaAdapter(CropImageGalleryFragment fragment, List<PhotoBean> list, int spanCount, int leftRight, int topBottom) {
+        this.mFragment = fragment;
+        this.mAct = mFragment.getActivity();
         this.list = list;
         WindowManager manager = mAct.getWindowManager();
         metrics = new DisplayMetrics();
@@ -43,7 +44,7 @@ public class ChoosePhotoJavaAdapter extends RecyclerView.Adapter<ChoosePhotoJava
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mAct)
                 .inflate(R.layout.choose_image_layout, parent, false);
-        return new ChoosePhotoJavaAdapter.ViewHolder(view, mAct, itemImgWidth, itemImgHeight);
+        return new ChooseCropPhotoJavaAdapter.ViewHolder(view, itemImgWidth, itemImgHeight);
     }
 
     @Override
@@ -56,7 +57,7 @@ public class ChoosePhotoJavaAdapter extends RecyclerView.Adapter<ChoosePhotoJava
         holder.img_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mAct.goToCropPicture(Uri.fromFile(new File(list.get(holder.getAdapterPosition()).getImagePaths())));
+//                mAct.goToCropPicture(Uri.fromFile(new File(list.get(holder.getAdapterPosition()).getImagePaths())));
             }
         });
     }
@@ -68,13 +69,12 @@ public class ChoosePhotoJavaAdapter extends RecyclerView.Adapter<ChoosePhotoJava
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        ChoosePhotoJavaActivity mAct;
+        CropImageGalleryFragment mFrament;
         private ImageView img_photo;
         private int itemImgWidth, itemImgHeight;
 
-        ViewHolder(View itemView, ChoosePhotoJavaActivity mAct, int itemImgWidth, int itemImgHeight) {
+        ViewHolder(View itemView, int itemImgWidth, int itemImgHeight) {
             super(itemView);
-            this.mAct = mAct;
             this.itemImgWidth = itemImgWidth;
             this.itemImgHeight = itemImgHeight;
             img_photo = itemView.findViewById(R.id.img_choose_photo);

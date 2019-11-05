@@ -43,7 +43,7 @@ public class UploadImageManager {
                          String imageDescription,
                          String albumId,
                          String userName,
-                         final UploadHeadPhotoUtil.UploadHeadPhotoListener mUploadHeadPhotoListener) {
+                         final UploadPhotoUtil.UploadHeadPhotoListener mUploadHeadPhotoListener) {
 
         if (chosenFile == null) {
             Toast.makeText(context, "Choose a file before upload.", Toast.LENGTH_SHORT)

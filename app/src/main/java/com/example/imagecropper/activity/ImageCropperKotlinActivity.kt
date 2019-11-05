@@ -11,9 +11,9 @@ import android.widget.*
 import com.example.imagecropper.R
 import com.example.imagecropper.cropimage.CropImageView
 import com.example.imagecropper.dialog.ProgressDialog
-import com.example.imagecropper.utils.UploadHeadPhotoUtil
+import com.example.imagecropper.utils.UploadPhotoUtil
 
-class ImageCropperKotlinActivity : AppCompatActivity(), CropImageView.OnSetImageUriCompleteListener, CropImageView.OnCropImageCompleteListener, UploadHeadPhotoUtil.UploadHeadPhotoListener {
+class ImageCropperKotlinActivity : AppCompatActivity(), CropImageView.OnSetImageUriCompleteListener, CropImageView.OnCropImageCompleteListener, UploadPhotoUtil.UploadHeadPhotoListener {
 
     private val TAG = ImageCropperJavaActivity::class.java.simpleName
 
@@ -89,9 +89,9 @@ class ImageCropperKotlinActivity : AppCompatActivity(), CropImageView.OnSetImage
 
     private fun uploadPhoto(bitmap: Bitmap) {
 
-        val cropImgFile = UploadHeadPhotoUtil.saveBitmapAndGetImageFile(bitmap)
+        val cropImgFile = UploadPhotoUtil.saveBitmapAndGetImageFile(bitmap)
         if (cropImgFile != null) {
-            UploadHeadPhotoUtil.uploadImageToImgur(this, cropImgFile)
+            UploadPhotoUtil.uploadImageToImgur(this, cropImgFile)
         } else {
             Log.d("tag1", "No Image File")
             mProgressDialog?.dismissAllowingStateLoss()
@@ -138,7 +138,7 @@ class ImageCropperKotlinActivity : AppCompatActivity(), CropImageView.OnSetImage
             mProgressDialog?.dismissAllowingStateLoss()
         }
 
-        UploadHeadPhotoUtil.deleteTempFile(this)
+//        UploadPhotoUtil.deleteTempFile(this)
 
     }
 
@@ -147,7 +147,7 @@ class ImageCropperKotlinActivity : AppCompatActivity(), CropImageView.OnSetImage
             mProgressDialog?.dismissAllowingStateLoss()
         }
 
-        UploadHeadPhotoUtil.deleteTempFile(this)
+//        UploadPhotoUtil.deleteTempFile(this)
     }
 
     override fun onBackPressed() {

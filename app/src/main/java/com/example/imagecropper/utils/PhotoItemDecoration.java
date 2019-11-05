@@ -1,35 +1,36 @@
 package com.example.imagecropper.utils;
 
 import android.graphics.Rect;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-public class HeadPhotoItemDecoration extends RecyclerView.ItemDecoration {
+public class PhotoItemDecoration extends RecyclerView.ItemDecoration {
     private int leftRight;
     private int topBottom;
 
-    public HeadPhotoItemDecoration(int leftRight, int topBottom) {
+    public PhotoItemDecoration(int leftRight, int topBottom) {
         this.leftRight = leftRight;
         this.topBottom = topBottom;
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+    public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         GridLayoutManager layoutManager = (GridLayoutManager) parent.getLayoutManager();
         final GridLayoutManager.LayoutParams lp = (GridLayoutManager.LayoutParams) view.getLayoutParams();
         final int childPosition = parent.getChildAdapterPosition(view);
         final int spanCount = layoutManager.getSpanCount();
         if (layoutManager.getOrientation() == GridLayoutManager.VERTICAL) {
-            //判断是否在第一排
+            //判斷是否在第一排
             if (layoutManager.getSpanSizeLookup().getSpanGroupIndex(childPosition, spanCount) == 0) {
-                //第一排的需要上面
+                //第一排的需要top
                 outRect.top = topBottom;
             }
             outRect.bottom = topBottom;
-            //这里忽略和合并项的问题，只考虑占满和单一的问题
+            //這裡忽略和合併項的問題，只考慮佔滿和單一的問題
             if (lp.getSpanSize() == spanCount) {
-                //占满
+                //佔滿
                 outRect.left = leftRight;
                 outRect.right = leftRight;
             } else {
@@ -38,13 +39,13 @@ public class HeadPhotoItemDecoration extends RecyclerView.ItemDecoration {
             }
         } else {
             if (layoutManager.getSpanSizeLookup().getSpanGroupIndex(childPosition, spanCount) == 0) {
-                //第一排的需要left
+                //第一排需要left
                 outRect.left = leftRight;
             }
             outRect.right = leftRight;
-            //这里忽略和合并项的问题，只考虑占满和单一的问题
+            //這裡忽略和合併項的問題，只考慮佔滿和單一的問題
             if (lp.getSpanSize() == spanCount) {
-                //占满
+                //佔滿
                 outRect.top = topBottom;
                 outRect.bottom = topBottom;
             } else {

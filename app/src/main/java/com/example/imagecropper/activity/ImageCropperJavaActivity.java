@@ -1,5 +1,7 @@
 package com.example.imagecropper.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,11 +19,12 @@ import android.widget.Toast;
 import com.example.imagecropper.R;
 import com.example.imagecropper.cropimage.CropImageView;
 import com.example.imagecropper.dialog.ProgressDialog;
-import com.example.imagecropper.utils.UploadHeadPhotoUtil;
+import com.example.imagecropper.utils.CheckConnectStatusManager;
+import com.example.imagecropper.utils.UploadPhotoUtil;
 
 import java.io.File;
 
-public class ImageCropperJavaActivity extends AppCompatActivity implements CropImageView.OnSetImageUriCompleteListener, UploadHeadPhotoUtil.UploadHeadPhotoListener,
+public class ImageCropperJavaActivity extends AppCompatActivity implements CropImageView.OnSetImageUriCompleteListener, UploadPhotoUtil.UploadHeadPhotoListener,
         CropImageView.OnCropImageCompleteListener {
 
     private static final String TAG = ImageCropperJavaActivity.class.getSimpleName();
@@ -98,15 +101,48 @@ public class ImageCropperJavaActivity extends AppCompatActivity implements CropI
 
     private void uploadPhoto(Bitmap bitmap) {
 
-        File cropImgFile = UploadHeadPhotoUtil.saveBitmapAndGetImageFile(bitmap);
-        if (cropImgFile != null) {
-            UploadHeadPhotoUtil.uploadImageToImgur(this, cropImgFile);
-        } else {
-            Log.d("tag1", "No Image File");
-            if(mProgressDialog != null) {
-                mProgressDialog.dismissAllowingStateLoss();
-            }
+        File cropImgFile = UploadPhotoUtil.saveBitmapAndGetImageFile(bitmap);
+
+        if(cropImgFile != null) {
+            UploadPhotoUtil.refreshImageDataBase(this, cropImgFile);
         }
+
+        if(CheckConnectStatusManager.checkNetWorkConnect(this)) {
+
+            Toast.makeText(this, "上傳圖片中", Toast.LENGTH_SHORT).show();
+
+            if (cropImgFile != null) {
+                showProgressDialog();
+                UploadPhotoUtil.uploadImageToImgur(this, cropImgFile);
+            } else {
+                Log.d("tag1", "No Image File");
+            }
+
+        } else {
+            Toast.makeText(this, "網路未開啟無法上傳", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void checkUploadDialog(final Bitmap bitmap) {
+        new AlertDialog.Builder(this)
+                .setTitle("剪裁完成")
+                .setMessage("圖片剪裁完成, 是否要上傳圖片到Imgur")
+                .setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        uploadPhoto(bitmap);
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        File file = UploadPhotoUtil.saveBitmapAndGetImageFile(bitmap);
+                        UploadPhotoUtil.refreshImageDataBase(ImageCropperJavaActivity.this, file);
+                        onBackPressed();
+                    }
+                })
+                .show();
     }
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -118,20 +154,19 @@ public class ImageCropperJavaActivity extends AppCompatActivity implements CropI
                 setResult(RESULT_CANCELED);
                 finish();
             } else if (v.getId() == R.id.sv_btn_text_finish) {
-                mProgressDialog = ProgressDialog.instance();
-                FragmentTransaction ft = ImageCropperJavaActivity.this.getSupportFragmentManager().beginTransaction();
-                ft.add(mProgressDialog, ProgressDialog.TAG);
-                ft.commitAllowingStateLoss();
+                showProgressDialog();
                 mCropImageView.getCroppedImageAsync();
             }
         }
     };
 
     private void handleCropResult(CropImageView.CropResult result) {
+
+        dismissProgressDialog();
+
         if (result.getError() == null) {
             if (result.getBitmap() != null) {
-                Toast.makeText(this, "上傳圖片中", Toast.LENGTH_SHORT).show();
-                uploadPhoto(result.getBitmap());
+                checkUploadDialog(result.getBitmap());
             } else {
                 Toast.makeText(
                         this,
@@ -149,6 +184,19 @@ public class ImageCropperJavaActivity extends AppCompatActivity implements CropI
         }
     }
 
+    private void showProgressDialog() {
+        mProgressDialog = ProgressDialog.instance();
+        FragmentTransaction ft = ImageCropperJavaActivity.this.getSupportFragmentManager().beginTransaction();
+        ft.add(mProgressDialog, ProgressDialog.TAG);
+        ft.commitAllowingStateLoss();
+    }
+
+    private void dismissProgressDialog() {
+        if(mProgressDialog != null) {
+            mProgressDialog.dismissAllowingStateLoss();
+        }
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -158,17 +206,11 @@ public class ImageCropperJavaActivity extends AppCompatActivity implements CropI
 
     @Override
     public void uploadImageSuccess() {
-        if(mProgressDialog != null) {
-            mProgressDialog.dismissAllowingStateLoss();
-        }
-        UploadHeadPhotoUtil.deleteTempFile(this);
+        dismissProgressDialog();
     }
 
     @Override
     public void uploadImageFail() {
-        if(mProgressDialog != null) {
-            mProgressDialog.dismissAllowingStateLoss();
-        }
-        UploadHeadPhotoUtil.deleteTempFile(this);
+        dismissProgressDialog();
     }
 }

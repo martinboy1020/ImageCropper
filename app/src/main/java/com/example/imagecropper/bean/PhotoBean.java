@@ -1,8 +1,8 @@
 package com.example.imagecropper.bean;
 
-public class HeadPhotoBean {
+public class PhotoBean {
 
-    public HeadPhotoBean() {
+    public PhotoBean() {
 
     }
 

@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     private var btnImageCropperJava : Button? = null
     private var btnImageCropperKotlin : Button? = null
+    private var btnUploadImage: Button? = null
     private val buttonClickListener = View.OnClickListener { view ->
 
         if(checkPermissionSuccess) {
@@ -50,11 +51,13 @@ class MainActivity : AppCompatActivity() {
     private fun findView() {
         btnImageCropperJava = findViewById(R.id.btn_cropper_java)
         btnImageCropperKotlin = findViewById(R.id.btn_cropper_kotlin)
+        btnUploadImage = findViewById(R.id.btn_upload_image)
     }
 
     private fun setOnClick() {
         btnImageCropperJava?.setOnClickListener(buttonClickListener)
         btnImageCropperKotlin?.setOnClickListener(buttonClickListener)
+        btnUploadImage?.setOnClickListener(buttonClickListener)
     }
 
     private fun setGoToPage(id : Int?) {
@@ -66,7 +69,12 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.btn_cropper_kotlin -> {
-                val intent = Intent(this@MainActivity, ChoosePhotoKotlinActivity::class.java)
+                val intent = Intent(this@MainActivity, ImageCropperKotlinActivity::class.java)
+                startActivity(intent)
+            }
+
+            R.id.btn_upload_image -> {
+                val intent = Intent(this@MainActivity, UploadCropImageActivity::class.java)
                 startActivity(intent)
             }
 

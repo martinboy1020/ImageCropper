@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.imagecropper">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -24,6 +25,7 @@
         <activity android:name=".activity.ChoosePhotoKotlinActivity"/>
         <activity android:name=".activity.ImageCropperJavaActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.ImageCropperKotlinActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.UploadCropImageActivity" android:screenOrientation="portrait"/>
 
     </application>
 

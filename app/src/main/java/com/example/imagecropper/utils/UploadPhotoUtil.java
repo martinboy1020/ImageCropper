@@ -17,17 +17,21 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
-public class UploadHeadPhotoUtil {
+public class UploadPhotoUtil {
 
-    private static final String TAG = UploadHeadPhotoUtil.class.getSimpleName();
-    private static String tmpImageDir = Environment.getExternalStorageDirectory().getPath();
-    private static String tmpImagePath = Environment.getExternalStorageDirectory().getPath() + "/imageCroper/temp.jpg";
+    private static final String TAG = UploadPhotoUtil.class.getSimpleName();
+    private static String tmpImageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath();
+//    private static String tmpImagePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath() + "/ImageCropper/temp.jpg";
 
     public static String saveBitmapAndGetImageUrl(Bitmap bitmap) {
         FileOutputStream fOut;
+        String tmpImagePath = tmpImageDir + getTempImageName();
         try {
-            File dir = new File(tmpImageDir, "imageCroper");
+            File dir = new File(tmpImageDir, "ImageCropper");
             if (!dir.exists()) {
                 dir.mkdir();
             }
@@ -37,7 +41,7 @@ public class UploadHeadPhotoUtil {
             try {
                 fOut.flush();
                 fOut.close();
-                if (checkHeadPhotoFileIsExist()) {
+                if (checkHeadPhotoFileIsExist(tmpImagePath)) {
                     File file = new File(tmpImagePath);
                     return file.getPath();
                 } else {
@@ -56,8 +60,9 @@ public class UploadHeadPhotoUtil {
 
     public static File saveBitmapAndGetImageFile(Bitmap bitmap) {
         FileOutputStream fOut;
+        String tmpImagePath = tmpImageDir + getTempImageName();
         try {
-            File dir = new File(tmpImageDir, "imageCroper");
+            File dir = new File(tmpImageDir, "ImageCropper");
             if (!dir.exists()) {
                 dir.mkdir();
             }
@@ -67,7 +72,7 @@ public class UploadHeadPhotoUtil {
             try {
                 fOut.flush();
                 fOut.close();
-                if (checkHeadPhotoFileIsExist()) {
+                if (checkHeadPhotoFileIsExist(tmpImagePath)) {
                     return new File(tmpImagePath);
                 } else {
                     return null;
@@ -83,14 +88,14 @@ public class UploadHeadPhotoUtil {
         }
     }
 
-    private static boolean checkHeadPhotoFileIsExist() {
+    private static boolean checkHeadPhotoFileIsExist(String tmpImagePath) {
         File file = new File(tmpImagePath);
         return file.exists();
     }
 
     public static void deleteTempFile(Context context) {
-        File dir = new File(tmpImageDir + "/imageCroper");
-        File img = new File(tmpImagePath);
+        File dir = new File(tmpImageDir + "/ImageCropper");
+//        File img = new File(tmpImagePath);
         if (dir.exists()) {
             try {
                 FileUtils.deleteDirectory(dir);
@@ -100,16 +105,20 @@ public class UploadHeadPhotoUtil {
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             String[] paths = new String[]{Environment.getExternalStorageDirectory().toString()};
-            MediaScannerConnection.scanFile(context, paths, null, null);
-            MediaScannerConnection.scanFile(context, new String[]{
-                            img.getAbsolutePath()},
-                    null, new MediaScannerConnection.OnScanCompletedListener() {
-                        public void onScanCompleted(String path, Uri uri) {
-                        }
-                    });
+//            MediaScannerConnection.scanFile(context, new String[]{
+//                            img.getAbsolutePath()},
+//                    null, new MediaScannerConnection.OnScanCompletedListener() {
+//                        public void onScanCompleted(String path, Uri uri) {
+//                        }
+//                    });
         } else {
             context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
         }
+    }
+
+    private static String getTempImageName() {
+        SimpleDateFormat sdFormat = new SimpleDateFormat("yyyyMMddHHmmss", Locale.US);
+        return "/ImageCropper/cropImage_" + sdFormat.format(new Date()) + ".jpg";
     }
 
     public static void uploadImageToImgur(ImageCropperJavaActivity mAct, File chooseFile) {
@@ -120,6 +129,21 @@ public class UploadHeadPhotoUtil {
     public static void uploadImageToImgur(ImageCropperKotlinActivity mAct, File chooseFile) {
         UploadImageManager mUploadImageManager = UploadImageManager.getInstance();
         mUploadImageManager.onUpload(mAct, chooseFile, "testName", "testDes", "", "", mAct);
+    }
+
+    public static void refreshImageDataBase(Context context, File file) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            String[] paths = new String[]{Environment.getExternalStorageDirectory().toString()};
+            MediaScannerConnection.scanFile(context, paths, null, null);
+            MediaScannerConnection.scanFile(context, new String[]{
+                            file.getAbsolutePath()},
+                    null, new MediaScannerConnection.OnScanCompletedListener() {
+                        public void onScanCompleted(String path, Uri uri) {
+                        }
+                    });
+        } else {
+            context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
+        }
     }
 
     public interface UploadHeadPhotoListener {

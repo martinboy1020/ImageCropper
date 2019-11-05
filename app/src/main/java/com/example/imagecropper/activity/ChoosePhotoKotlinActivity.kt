@@ -16,8 +16,8 @@ import android.view.View
 import android.widget.RelativeLayout
 import com.example.imagecropper.R
 import com.example.imagecropper.adapter.ChoosePhotoKotlinAdapter
-import com.example.imagecropper.bean.HeadPhotoBean
-import com.example.imagecropper.utils.HeadPhotoItemDecoration
+import com.example.imagecropper.bean.PhotoBean
+import com.example.imagecropper.utils.PhotoItemDecoration
 import java.util.*
 
 class ChoosePhotoKotlinActivity : AppCompatActivity() {
@@ -39,18 +39,18 @@ class ChoosePhotoKotlinActivity : AppCompatActivity() {
         btn_back?.setOnClickListener(View.OnClickListener { onBackPressed() })
         recycler_view_choose_photo = findViewById(R.id.recycler_view_choose_photo)
         recycler_view_choose_photo?.layoutManager = GridLayoutManager(this, spanCount)
-        recycler_view_choose_photo?.addItemDecoration(HeadPhotoItemDecoration(leftRight, topBottom))
+        recycler_view_choose_photo?.addItemDecoration(PhotoItemDecoration(leftRight, topBottom))
         GetPhotoTask().execute()
     }
 
-    private fun setList(list: List<HeadPhotoBean>) {
-        Log.d(TAG, "headPhotoBeanList Size: " + list.size)
+    private fun setList(list: List<PhotoBean>) {
+        Log.d(TAG, "PhotoBeanList Size: " + list.size)
         adapter = ChoosePhotoKotlinAdapter(this, list, spanCount, leftRight, topBottom)
         recycler_view_choose_photo?.adapter = adapter
     }
 
     @SuppressLint("StaticFieldLeak")
-    internal inner class GetPhotoTask : AsyncTask<Void, Void, List<HeadPhotoBean>>() {
+    internal inner class GetPhotoTask : AsyncTask<Void, Void, List<PhotoBean>>() {
 
         var cr = contentResolver
         var projection = arrayOf(MediaStore.Images.Media._ID, MediaStore.Images.Media.DATA, MediaStore.Images.Media.SIZE, MediaStore.Images.Media.DISPLAY_NAME)
@@ -68,29 +68,29 @@ class ChoosePhotoKotlinActivity : AppCompatActivity() {
 
         }
 
-        override fun doInBackground(vararg voids: Void): List<HeadPhotoBean> {
+        override fun doInBackground(vararg voids: Void): List<PhotoBean> {
 
-            val headPhotoBeanList = ArrayList<HeadPhotoBean>()
+            val PhotoBeanList = ArrayList<PhotoBean>()
 
             if (cursor != null) {
                 for (i in 0 until cursor!!.count) {
-                    val headPhotoBean = HeadPhotoBean()
+                    val PhotoBean = PhotoBean()
                     cursor!!.moveToPosition(i)
                     val id = cursor!!.getInt(cursor!!
                             .getColumnIndex(MediaStore.Images.Media._ID))// ID
-                    headPhotoBean.thumbs = id.toString() + ""
+                    PhotoBean.thumbs = id.toString() + ""
                     val filepath = cursor!!.getString(cursor!!.getColumnIndex(MediaStore.Images.Media.DATA))//抓路徑
-                    headPhotoBean.imagePaths = filepath
-                    headPhotoBeanList.add(headPhotoBean)
+                    PhotoBean.imagePaths = filepath
+                    PhotoBeanList.add(PhotoBean)
                 }
 
                 cursor!!.close()
             }
 
-            return headPhotoBeanList
+            return PhotoBeanList
         }
 
-        override fun onPostExecute(list: List<HeadPhotoBean>) {
+        override fun onPostExecute(list: List<PhotoBean>) {
             super.onPostExecute(list)
             setList(list)
         }

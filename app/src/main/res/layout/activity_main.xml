@@ -4,21 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".activity.MainActivity">
 
-   <Button
-       android:id="@+id/btn_cropper_java"
-       android:layout_width="match_parent"
-       android:layout_height="60dp"
-       android:text="ImageCropperInJava"
-       android:textAllCaps="false"/>
+    <Button
+        android:id="@+id/btn_cropper_java"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="ImageCropperInJava"
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/btn_cropper_kotlin"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="ImageCropperInKotlin"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_upload_image"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="UploadImageToImgur"
+        android:textAllCaps="false" />
 
 </LinearLayout>

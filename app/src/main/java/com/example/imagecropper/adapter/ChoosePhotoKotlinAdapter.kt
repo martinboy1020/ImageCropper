@@ -10,10 +10,10 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.example.imagecropper.R
 import com.example.imagecropper.activity.ChoosePhotoKotlinActivity
-import com.example.imagecropper.bean.HeadPhotoBean
+import com.example.imagecropper.bean.PhotoBean
 import java.io.File
 
-class ChoosePhotoKotlinAdapter(private val mAct: ChoosePhotoKotlinActivity?, private val list: List<HeadPhotoBean>, spanCount: Int, leftRight: Int, topBottom: Int) : RecyclerView.Adapter<ChoosePhotoKotlinAdapter.ViewHolder>() {
+class ChoosePhotoKotlinAdapter(private val mAct: ChoosePhotoKotlinActivity?, private val list: List<PhotoBean>, spanCount: Int, leftRight: Int, topBottom: Int) : RecyclerView.Adapter<ChoosePhotoKotlinAdapter.ViewHolder>() {
     private val metrics: DisplayMetrics
     private val spanCount: Int = 0
     private val leftRight: Int = 0
