@@ -7,9 +7,11 @@ import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.widget.Toast;
 
 import com.example.imagecropper.activity.ImageCropperJavaActivity;
 import com.example.imagecropper.activity.ImageCropperKotlinActivity;
+import com.example.imagecropper.bean.PhotoBean;
 
 import org.apache.commons.io.FileUtils;
 
@@ -19,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class UploadPhotoUtil {
@@ -93,9 +96,8 @@ public class UploadPhotoUtil {
         return file.exists();
     }
 
-    public static void deleteTempFile(Context context) {
+    public static void deleteTempFile(final Context context, List<PhotoBean> list) {
         File dir = new File(tmpImageDir + "/ImageCropper");
-//        File img = new File(tmpImagePath);
         if (dir.exists()) {
             try {
                 FileUtils.deleteDirectory(dir);
@@ -103,17 +105,24 @@ public class UploadPhotoUtil {
                 e.printStackTrace();
             }
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            String[] paths = new String[]{Environment.getExternalStorageDirectory().toString()};
-//            MediaScannerConnection.scanFile(context, new String[]{
-//                            img.getAbsolutePath()},
-//                    null, new MediaScannerConnection.OnScanCompletedListener() {
-//                        public void onScanCompleted(String path, Uri uri) {
-//                        }
-//                    });
-        } else {
-            context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
+
+        for(PhotoBean photoBean : list) {
+            File img = new File(photoBean.getImagePaths());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//                String[] paths = new String[]{Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()};
+                MediaScannerConnection.scanFile(context, new String[]{
+                                img.getAbsolutePath()},
+                        null, new MediaScannerConnection.OnScanCompletedListener() {
+                            public void onScanCompleted(String path, Uri uri) {
+                            }
+                        });
+                Toast.makeText(context, "Clear Temp Image Success", Toast.LENGTH_SHORT).show();
+            } else {
+                context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
+                Toast.makeText(context, "Clear Temp Image Success", Toast.LENGTH_SHORT).show();
+            }
         }
+
     }
 
     private static String getTempImageName() {
@@ -123,12 +132,12 @@ public class UploadPhotoUtil {
 
     public static void uploadImageToImgur(ImageCropperJavaActivity mAct, File chooseFile) {
         UploadImageManager mUploadImageManager = UploadImageManager.getInstance();
-        mUploadImageManager.onUpload(mAct, chooseFile, "testName", "testDes", "", "", mAct);
+        mUploadImageManager.onUpload(mAct, chooseFile, "", "", "", "", mAct);
     }
 
     public static void uploadImageToImgur(ImageCropperKotlinActivity mAct, File chooseFile) {
         UploadImageManager mUploadImageManager = UploadImageManager.getInstance();
-        mUploadImageManager.onUpload(mAct, chooseFile, "testName", "testDes", "", "", mAct);
+        mUploadImageManager.onUpload(mAct, chooseFile, "", "", "", "", mAct);
     }
 
     public static void refreshImageDataBase(Context context, File file) {
@@ -147,7 +156,7 @@ public class UploadPhotoUtil {
     }
 
     public interface UploadHeadPhotoListener {
-        void uploadImageSuccess();
+        void uploadImageSuccess(String uploadImageID);
         void uploadImageFail();
     }
 

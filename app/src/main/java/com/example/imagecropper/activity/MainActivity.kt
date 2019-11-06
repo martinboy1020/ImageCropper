@@ -1,28 +1,43 @@
 package com.example.imagecropper.activity
 
-import android.content.Intent
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.*
 import android.content.pm.PackageManager
+import android.database.Cursor
+import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.Button
-import android.widget.Toast
+import android.widget.*
+import com.bumptech.glide.Glide
 import com.example.imagecropper.R
+import com.example.imagecropper.bean.PhotoBean
 import com.example.imagecropper.utils.CheckPermissionManager
+import com.example.imagecropper.utils.UploadPhotoUtil
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
     private var mCheckPermissionManager: CheckPermissionManager? = null
     private var checkPermissionSuccess = false
 
+    private val FINISH_UPLOAD_PHOTO = 100
+
+    private var layoutPreview : RelativeLayout? = null
+    private var textImgDirectUrl : TextView? = null
+    private var imgPreview : ImageView? = null
     private var btnImageCropperJava : Button? = null
     private var btnImageCropperKotlin : Button? = null
     private var btnUploadImage: Button? = null
+    private var btnCleanTempImage : Button? = null
+    private var btnCopy : Button? = null
     private val buttonClickListener = View.OnClickListener { view ->
 
         if(checkPermissionSuccess) {
-            setGoToPage(view.id)
+            clickEvent(view.id)
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (mCheckPermissionManager == null) {
@@ -32,10 +47,10 @@ class MainActivity : AppCompatActivity() {
                 if (mCheckPermissionManager?.checkPermissions(CheckPermissionManager.permissions)?.isNotEmpty()!!) {
                     mCheckPermissionManager?.requestPermission(this, CheckPermissionManager.permissions)
                 } else {
-                    setGoToPage(view.id)
+                    clickEvent(view.id)
                 }
             } else {
-                setGoToPage(view.id)
+                clickEvent(view.id)
             }
         }
 
@@ -52,30 +67,117 @@ class MainActivity : AppCompatActivity() {
         btnImageCropperJava = findViewById(R.id.btn_cropper_java)
         btnImageCropperKotlin = findViewById(R.id.btn_cropper_kotlin)
         btnUploadImage = findViewById(R.id.btn_upload_image)
+        btnCleanTempImage = findViewById(R.id.btn_clean_temp_image)
+        btnCopy = findViewById(R.id.btn_copy)
+        layoutPreview = findViewById(R.id.layout_preview)
+        layoutPreview?.visibility = View.GONE
+        textImgDirectUrl = findViewById(R.id.text_img_direct_url)
+        imgPreview = findViewById(R.id.img_preview)
     }
 
     private fun setOnClick() {
         btnImageCropperJava?.setOnClickListener(buttonClickListener)
         btnImageCropperKotlin?.setOnClickListener(buttonClickListener)
         btnUploadImage?.setOnClickListener(buttonClickListener)
+        btnCleanTempImage?.setOnClickListener(buttonClickListener)
     }
 
-    private fun setGoToPage(id : Int?) {
+    private fun showPreview(uploadImageId : String) {
+        layoutPreview?.visibility = View.VISIBLE
+        val imgDirectUrl = "http://i.imgur.com/$uploadImageId.jpg"
+        textImgDirectUrl?.text = imgDirectUrl
+        Glide.with(this).load(imgDirectUrl).into(imgPreview)
+        btnCopy?.setOnClickListener(View.OnClickListener {
+            if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+                val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as android.text.ClipboardManager
+                clipboard.text = imgDirectUrl
+            } else {
+                val clipboard: ClipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip : ClipData = ClipData.newPlainText("text label", imgDirectUrl)
+                clipboard.primaryClip = clip
+            }
+            Toast.makeText(this, "Copy Image Link Success", Toast.LENGTH_SHORT).show()
+        })
+    }
+
+    private fun clearTempImage() {
+        GetPhotoTask(this).execute()
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    internal inner class GetPhotoTask(act: Activity) : AsyncTask<Void, Void, List<PhotoBean>>() {
+        var mAct = act
+        var cr: ContentResolver
+        var projection = arrayOf(MediaStore.Images.Media._ID, MediaStore.Images.Media.DATA, MediaStore.Images.Media.SIZE, MediaStore.Images.Media.DISPLAY_NAME)
+        var cursor: Cursor? = null
+
+        init {
+            cr = mAct.contentResolver
+        }
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+
+            //查詢圖片
+            cursor = cr.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    projection,
+                    MediaStore.Images.Media.DATA + " like ? ",
+                    arrayOf("%ImageCropper%"),
+                    MediaStore.Images.Media.DATE_MODIFIED + " desc")
+
+        }
+
+        override fun doInBackground(vararg voids: Void): List<PhotoBean> {
+
+            val PhotoBeanList = ArrayList<PhotoBean>()
+
+            if (cursor != null) {
+                for (i in 0 until cursor!!.count) {
+                    cursor!!.moveToPosition(i)
+                    val filepath = cursor!!.getString(cursor!!.getColumnIndex(MediaStore.Images.Media.DATA))
+                    //只找出副檔名為.jpg或.png的檔案
+                    if (filepath.endsWith(".jpg") || filepath.endsWith(".png")) {
+                        val photoBean = PhotoBean()
+                        val id = cursor!!.getInt(cursor!!
+                                .getColumnIndex(MediaStore.Images.Media._ID))// ID
+                        photoBean.thumbs = id.toString() + ""
+                        photoBean.imagePaths = filepath
+                        PhotoBeanList.add(photoBean)
+                    }
+                }
+
+                cursor!!.close()
+            }
+
+            return PhotoBeanList
+        }
+
+        override fun onPostExecute(list: List<PhotoBean>) {
+            super.onPostExecute(list)
+            UploadPhotoUtil.deleteTempFile(mAct, list)
+        }
+    }
+
+    private fun clickEvent(id : Int?) {
         when(id) {
 
             R.id.btn_cropper_java -> {
                 val intent = Intent(this@MainActivity, ChoosePhotoJavaActivity::class.java)
-                startActivity(intent)
+                startActivityForResult(intent, FINISH_UPLOAD_PHOTO)
             }
 
             R.id.btn_cropper_kotlin -> {
-                val intent = Intent(this@MainActivity, ImageCropperKotlinActivity::class.java)
+                val intent = Intent(this@MainActivity, ChoosePhotoKotlinActivity::class.java)
                 startActivity(intent)
             }
 
             R.id.btn_upload_image -> {
                 val intent = Intent(this@MainActivity, UploadCropImageActivity::class.java)
                 startActivity(intent)
+            }
+
+            R.id.btn_clean_temp_image -> {
+                clearTempImage()
             }
 
         }
@@ -102,4 +204,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == FINISH_UPLOAD_PHOTO && resultCode == Activity.RESULT_OK) {
+            val uploadImageID : String = data?.getStringExtra("uploadImageID") ?: ""
+            if(uploadImageID != "") {
+                showPreview(uploadImageID)
+            }
+        }
+    }
 }

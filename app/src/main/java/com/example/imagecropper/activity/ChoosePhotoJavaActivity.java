@@ -96,12 +96,12 @@ public class ChoosePhotoJavaActivity extends AppCompatActivity {
                     String filepath = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
 
                     if(!filepath.contains("cropImage_")) {
-                        PhotoBean PhotoBean = new PhotoBean();
+                        PhotoBean photoBean = new PhotoBean();
                         int id = cursor.getInt(cursor
                                 .getColumnIndex(MediaStore.Images.Media._ID));// ID
-                        PhotoBean.setThumbs(id + "");
-                        PhotoBean.setImagePaths(filepath);
-                        PhotoBeanList.add(PhotoBean);
+                        photoBean.setThumbs(id + "");
+                        photoBean.setImagePaths(filepath);
+                        PhotoBeanList.add(photoBean);
                     }
 
                 }
@@ -129,9 +129,8 @@ public class ChoosePhotoJavaActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == FINISH_CROP_IMAGE && resultCode == RESULT_OK) {
-            setResult(RESULT_OK);
+            setResult(RESULT_OK, data);
             finish();
         }
 

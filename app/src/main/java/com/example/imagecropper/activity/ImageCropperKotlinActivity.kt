@@ -133,7 +133,7 @@ class ImageCropperKotlinActivity : AppCompatActivity(), CropImageView.OnSetImage
         handleCropResult(result)
     }
 
-    override fun uploadImageSuccess() {
+    override fun uploadImageSuccess(uploadImageID : String) {
         if (mProgressDialog != null) {
             mProgressDialog?.dismissAllowingStateLoss()
         }

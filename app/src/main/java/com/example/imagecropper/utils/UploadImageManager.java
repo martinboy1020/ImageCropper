@@ -82,7 +82,7 @@ public class UploadImageManager {
                         Log.d("URL Picture", "http://imgur.com/" + response.body().data.id);
                     }
                     notificationHelper.createUploadedNotification(response.body());
-                    mUploadHeadPhotoListener.uploadImageSuccess();
+                    mUploadHeadPhotoListener.uploadImageSuccess(response.body().data.id);
                 }
             }
 

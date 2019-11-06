@@ -110,12 +110,12 @@ public class CropImageGalleryFragment extends Fragment {
                     String filepath = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
                     //只找出副檔名為.jpg或.png的檔案
                     if(filepath.endsWith(".jpg") || filepath.endsWith(".png")) {
-                        PhotoBean PhotoBean = new PhotoBean();
+                        PhotoBean photoBean = new PhotoBean();
                         int id = cursor.getInt(cursor
                                 .getColumnIndex(MediaStore.Images.Media._ID));// ID
-                        PhotoBean.setThumbs(id + "");
-                        PhotoBean.setImagePaths(filepath);
-                        PhotoBeanList.add(PhotoBean);
+                        photoBean.setThumbs(id + "");
+                        photoBean.setImagePaths(filepath);
+                        PhotoBeanList.add(photoBean);
                     }
                 }
 

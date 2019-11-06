@@ -2,6 +2,7 @@ package com.example.imagecropper.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -79,7 +80,8 @@ public class ImageCropperJavaActivity extends AppCompatActivity implements CropI
 
         mCropImageView.setOnSetImageUriCompleteListener(this);
         mCropImageView.setOnCropImageCompleteListener(this);
-        mCropImageView.setFixedAspectRatio(true);
+        // 裁切範圍是否為等比例正方
+        mCropImageView.setFixedAspectRatio(false);
     }
 
     @Override
@@ -185,10 +187,15 @@ public class ImageCropperJavaActivity extends AppCompatActivity implements CropI
     }
 
     private void showProgressDialog() {
-        mProgressDialog = ProgressDialog.instance();
-        FragmentTransaction ft = ImageCropperJavaActivity.this.getSupportFragmentManager().beginTransaction();
-        ft.add(mProgressDialog, ProgressDialog.TAG);
-        ft.commitAllowingStateLoss();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mProgressDialog = ProgressDialog.instance();
+                FragmentTransaction ft = ImageCropperJavaActivity.this.getSupportFragmentManager().beginTransaction();
+                ft.add(mProgressDialog, ProgressDialog.TAG);
+                ft.commitAllowingStateLoss();
+            }
+        });
     }
 
     private void dismissProgressDialog() {
@@ -205,8 +212,10 @@ public class ImageCropperJavaActivity extends AppCompatActivity implements CropI
     }
 
     @Override
-    public void uploadImageSuccess() {
+    public void uploadImageSuccess(String uploadImageID) {
         dismissProgressDialog();
+        setResult(RESULT_OK, new Intent().putExtra("uploadImageID", uploadImageID));
+        finish();
     }
 
     @Override
