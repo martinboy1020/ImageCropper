@@ -19,6 +19,8 @@ import com.example.imagecropper.utils.CheckPermissionManager
 import com.example.imagecropper.utils.UploadPhotoUtil
 import java.util.*
 
+
+
 class MainActivity : AppCompatActivity() {
 
     private var mCheckPermissionManager: CheckPermissionManager? = null
@@ -33,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     private var btnImageCropperKotlin : Button? = null
     private var btnUploadImage: Button? = null
     private var btnCleanTempImage : Button? = null
+    private var btnPreviewClose : ImageView? = null
     private var btnCopy : Button? = null
     private val buttonClickListener = View.OnClickListener { view ->
 
@@ -68,6 +71,7 @@ class MainActivity : AppCompatActivity() {
         btnImageCropperKotlin = findViewById(R.id.btn_cropper_kotlin)
         btnUploadImage = findViewById(R.id.btn_upload_image)
         btnCleanTempImage = findViewById(R.id.btn_clean_temp_image)
+        btnPreviewClose = findViewById(R.id.btn_preview_close)
         btnCopy = findViewById(R.id.btn_copy)
         layoutPreview = findViewById(R.id.layout_preview)
         layoutPreview?.visibility = View.GONE
@@ -75,11 +79,17 @@ class MainActivity : AppCompatActivity() {
         imgPreview = findViewById(R.id.img_preview)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun setOnClick() {
         btnImageCropperJava?.setOnClickListener(buttonClickListener)
         btnImageCropperKotlin?.setOnClickListener(buttonClickListener)
         btnUploadImage?.setOnClickListener(buttonClickListener)
         btnCleanTempImage?.setOnClickListener(buttonClickListener)
+        btnPreviewClose?.setOnClickListener(buttonClickListener)
+        layoutPreview?.setOnTouchListener { view, motionEvent ->
+            // TODO Auto-generated method stub
+            true
+        }
     }
 
     private fun showPreview(uploadImageId : String) {
@@ -180,6 +190,13 @@ class MainActivity : AppCompatActivity() {
                 clearTempImage()
             }
 
+            R.id.btn_preview_close -> {
+                if(layoutPreview?.visibility == View.VISIBLE) {
+                    Glide.clear(imgPreview)
+                    layoutPreview?.visibility = View.GONE
+                }
+            }
+
         }
     }
 
@@ -213,4 +230,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onBackPressed() {
+        if(layoutPreview?.visibility == View.VISIBLE) {
+            layoutPreview?.visibility = View.GONE
+        } else {
+            super.onBackPressed()
+        }
+    }
+
 }
