@@ -14,9 +14,12 @@ import android.view.View
 import android.widget.*
 import com.bumptech.glide.Glide
 import com.example.imagecropper.R
+import com.example.imagecropper.bean.ImgurBean
 import com.example.imagecropper.bean.PhotoBean
 import com.example.imagecropper.utils.CheckPermissionManager
+import com.example.imagecropper.utils.SharePreferenceManager
 import com.example.imagecropper.utils.UploadPhotoUtil
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -34,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     private var btnImageCropperJava : Button? = null
     private var btnImageCropperKotlin : Button? = null
     private var btnUploadImage: Button? = null
+    private var btnUploadImageHistory: Button? = null
     private var btnCleanTempImage : Button? = null
     private var btnPreviewClose : ImageView? = null
     private var btnCopy : Button? = null
@@ -70,6 +74,7 @@ class MainActivity : AppCompatActivity() {
         btnImageCropperJava = findViewById(R.id.btn_cropper_java)
         btnImageCropperKotlin = findViewById(R.id.btn_cropper_kotlin)
         btnUploadImage = findViewById(R.id.btn_upload_image)
+        btnUploadImageHistory = findViewById(R.id.btn_upload_image_history)
         btnCleanTempImage = findViewById(R.id.btn_clean_temp_image)
         btnPreviewClose = findViewById(R.id.btn_preview_close)
         btnCopy = findViewById(R.id.btn_copy)
@@ -84,6 +89,7 @@ class MainActivity : AppCompatActivity() {
         btnImageCropperJava?.setOnClickListener(buttonClickListener)
         btnImageCropperKotlin?.setOnClickListener(buttonClickListener)
         btnUploadImage?.setOnClickListener(buttonClickListener)
+        btnUploadImageHistory?.setOnClickListener(buttonClickListener)
         btnCleanTempImage?.setOnClickListener(buttonClickListener)
         btnPreviewClose?.setOnClickListener(buttonClickListener)
         layoutPreview?.setOnTouchListener { view, motionEvent ->
@@ -95,6 +101,13 @@ class MainActivity : AppCompatActivity() {
     private fun showPreview(uploadImageId : String) {
         layoutPreview?.visibility = View.VISIBLE
         val imgDirectUrl = "http://i.imgur.com/$uploadImageId.jpg"
+        val sdFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
+        val imgurBean = ImgurBean()
+        imgurBean.imgID = uploadImageId
+        imgurBean.imgUrl = imgDirectUrl
+        imgurBean.uploadDate = sdFormat.format(Date())
+        SharePreferenceManager.addUploadImageInHistory(this, imgurBean)
+
         textImgDirectUrl?.text = imgDirectUrl
         Glide.with(this).load(imgDirectUrl).into(imgPreview)
         btnCopy?.setOnClickListener(View.OnClickListener {
@@ -186,6 +199,11 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
 
+            R.id.btn_upload_image_history -> {
+                val intent = Intent(this@MainActivity, UploadPictureHistoryActivity::class.java)
+                startActivity(intent)
+            }
+
             R.id.btn_clean_temp_image -> {
                 clearTempImage()
             }
@@ -238,5 +256,25 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
+
+//    private fun testGson() {
+//        val imgurBean = ImgurBean()
+//        imgurBean.imgID = "imagePaths"
+//        imgurBean.imgUrl = "thumbs"
+//
+//        val list = ArrayList<ImgurBean>()
+//        list.add(imgurBean)
+//        list.add(imgurBean)
+//
+//        val stringJson : String = GsonUtil.ArrayListToJson(list)
+//
+//        Log.d("tag1 testConvertGson", stringJson)
+//
+//        val listType = object : TypeToken<List<ImgurBean>>() { }.type
+//        val covertList = GsonUtil.JsonToArrayList(stringJson, listType) as? List<ImgurBean>
+//
+//        Log.d("tag1 covertList.siz", covertList?.size.toString())
+//
+//    }
 
 }

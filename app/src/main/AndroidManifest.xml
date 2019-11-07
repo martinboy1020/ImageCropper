@@ -27,6 +27,7 @@
         <activity android:name=".activity.ImageCropperJavaActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.ImageCropperKotlinActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.UploadCropImageActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.UploadPictureHistoryActivity" android:screenOrientation="portrait"/>
 
     </application>
 
