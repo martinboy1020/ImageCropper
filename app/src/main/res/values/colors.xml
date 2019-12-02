@@ -3,4 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <!-- Warning Dialog -->
+    <color name="dialog_bottom_title_color">#181818</color>
+    <color name="dialog_bottom_content_color">#444444</color>
 </resources>

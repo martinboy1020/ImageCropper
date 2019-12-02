@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.imagecropper">
+    package="com.martinboy.imagecropper">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -9,9 +9,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_crop"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_crop"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
 <!--        <activity android:name=".activity.MainActivity" android:screenOrientation="portrait">-->
@@ -22,7 +22,7 @@
 <!--            </intent-filter>-->
 <!--        </activity>-->
 
-        <activity android:name=".activity.HomeActivity" android:screenOrientation="portrait">
+        <activity android:name="com.martinboy.imagecropper.activity.HomeActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,12 +30,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.ChoosePhotoJavaActivity"/>
-        <activity android:name=".activity.ChoosePhotoKotlinActivity"/>
-        <activity android:name=".activity.ImageCropperJavaActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ImageCropperKotlinActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.UploadCropImageActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.UploadPictureHistoryActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.martinboy.imagecropper.activity.ChoosePhotoJavaActivity"/>
+        <activity android:name="com.martinboy.imagecropper.activity.ChoosePhotoKotlinActivity"/>
+        <activity android:name="com.martinboy.imagecropper.activity.ImageCropperJavaActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.martinboy.imagecropper.activity.ImageCropperKotlinActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.martinboy.imagecropper.activity.UploadCropImageActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.martinboy.imagecropper.activity.UploadPictureHistoryActivity" android:screenOrientation="portrait"/>
 
     </application>
 

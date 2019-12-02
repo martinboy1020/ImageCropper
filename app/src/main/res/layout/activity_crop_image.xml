@@ -69,7 +69,7 @@
             android:background="@android:color/white"
             android:paddingBottom="90dp">
 
-            <com.example.imagecropper.cropimage.CropImageView
+            <com.martinboy.imagecropper.cropimage.CropImageView
                 android:id="@+id/sv_cropImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">圖片裁剪上傳器</string>
+    <string name="choose_image_menu">照片選擇</string>
+    <string name="crop_image_menu_rotate_left">逆時針旋轉</string>
+    <string name="crop_image_menu_rotate_right">旋轉</string>
+    <string name="crop_image_menu_crop">裁剪</string>
+    <string name="crop_image_menu_flip">翻轉</string>
+    <string name="crop_image_menu_flip_horizontally">水平翻轉</string>
+    <string name="crop_image_menu_flip_vertically">垂直翻轉</string>
+    <string name="crop_image_activity_no_permissions">取消中，未授予所需權限</string>
+    <string name="crop_image_text_finish">完成</string>
+    <string name="text_upload_image_success">圖片上傳成功</string>
+    <string name="text_copy_image_url">複製圖片連結</string>
+    <string name="text_permission_pass">授權權限成功, 請重新點擊</string>
+    <string name="text_permission_denied">授權權限失敗</string>
+    <string name="text_please_you_want_to_do">請選擇想要上傳的來源</string>
+    <string name="text_cropped_pic">從已裁剪的圖片選擇</string>
+    <string name="text_all_pic">從全部的照片選擇</string>
+    <string name="notification_success">圖片已上傳.</string>
+    <string name="notification_progress">上傳中&#8230;</string>
+    <string name="notification_share_link">圖片連結</string>
+    <string name="notification_fail">上傳圖片失敗.</string>
+    <string name="input_title">標題</string>
+    <string name="input_description">描述</string>
+    <string name="btn_picture">瀏覽</string>
+    <string name="btn_upload">上傳</string>
+</resources>
