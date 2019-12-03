@@ -2,11 +2,10 @@ package com.martinboy.imagecropper.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
-import com.martinboy.imagecropper.bean.ImgurBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.martinboy.imagecropper.bean.ImgurBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +27,7 @@ public class SharePreferenceManager {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES_IMAGE_CROPPER, Context.MODE_PRIVATE);
         Gson gson = GsonUtil.getCustomGson();
         String json = gson.toJson(imgList);
-        Log.d("tag1", "json: " + json);
+//        Log.d("tag1 addUploadImageInHistory", "json: " + json);
         sharedPreferences.edit().putString(UPLOAD_IMAGE_HISTORY, json).apply();
     }
 
@@ -36,7 +35,7 @@ public class SharePreferenceManager {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES_IMAGE_CROPPER, Context.MODE_PRIVATE);
         Gson gson = GsonUtil.getCustomGson();
         String stringJson = sharedPreferences.getString(UPLOAD_IMAGE_HISTORY, "");
-        Log.d("tag1", "stringJson: " + stringJson);
+//        Log.d("tag1 getUploadImageHistoryList", "stringJson: " + stringJson);
         if (!stringJson.equals("")) {
             return (List<ImgurBean>) GsonUtil.JsonToArrayList(stringJson, new TypeToken<List<ImgurBean>>(){}.getType());
         } else {

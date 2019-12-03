@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.martinboy.imagecropper.imgur.ImageResponse;
+import com.martinboy.imagecropper.bean.ImageResponse;
 import com.martinboy.imagecropper.imgur.ImgurService;
 import com.martinboy.imagecropper.imgur.NotificationHelper;
 

@@ -70,24 +70,29 @@ class ChoosePhotoKotlinActivity : AppCompatActivity() {
 
         override fun doInBackground(vararg voids: Void): List<PhotoBean> {
 
-            val PhotoBeanList = ArrayList<PhotoBean>()
+            val photoBeanList = ArrayList<PhotoBean>()
 
             if (cursor != null) {
                 for (i in 0 until cursor!!.count) {
-                    val PhotoBean = PhotoBean()
+                    val photoBean = PhotoBean()
                     cursor!!.moveToPosition(i)
-                    val id = cursor!!.getInt(cursor!!
-                            .getColumnIndex(MediaStore.Images.Media._ID))// ID
-                    PhotoBean.thumbs = id.toString() + ""
                     val filepath = cursor!!.getString(cursor!!.getColumnIndex(MediaStore.Images.Media.DATA))//抓路徑
-                    PhotoBean.imagePaths = filepath
-                    PhotoBeanList.add(PhotoBean)
+
+                    if (filepath.endsWith(".jpg") || filepath.endsWith(".png")) {
+
+                        val id = cursor!!.getInt(cursor!!
+                                .getColumnIndex(MediaStore.Images.Media._ID))// ID
+                        photoBean.thumbs = id.toString() + ""
+
+                        photoBean.imagePaths = filepath
+                        photoBeanList.add(photoBean)
+                    }
                 }
 
                 cursor!!.close()
             }
 
-            return PhotoBeanList
+            return photoBeanList
         }
 
         override fun onPostExecute(list: List<PhotoBean>) {

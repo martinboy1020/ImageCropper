@@ -16,10 +16,6 @@ class UploadPicHistoryAdapter(private val mAct: UploadPictureHistoryActivity?)
 
     private var mList : List<ImgurBean>? = null
 
-    init {
-
-    }
-
     fun setData(list : List<ImgurBean>) {
         this.mList = list
         notifyDataSetChanged()
@@ -39,7 +35,7 @@ class UploadPicHistoryAdapter(private val mAct: UploadPictureHistoryActivity?)
 
     override fun getItemCount(): Int {
         return if(mList != null) {
-            mList!!.size
+            mList?.size!!
         } else {
             0
         }
@@ -47,7 +43,7 @@ class UploadPicHistoryAdapter(private val mAct: UploadPictureHistoryActivity?)
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val img_photo: ImageView = itemView.findViewById(R.id.image_preview)
+        val img_photo : ImageView = itemView.findViewById(R.id.image_preview)
         val text_img_url : TextView = itemView.findViewById(R.id.text_img_url)
         val text_upload_date : TextView = itemView.findViewById(R.id.text_upload_date)
     }

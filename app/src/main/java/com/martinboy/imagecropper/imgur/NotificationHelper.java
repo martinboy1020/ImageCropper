@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
 import com.martinboy.imagecropper.R;
+import com.martinboy.imagecropper.bean.ImageResponse;
 
 import java.lang.ref.WeakReference;
 

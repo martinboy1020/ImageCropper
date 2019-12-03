@@ -112,7 +112,7 @@ class HomeActivity : AppCompatActivity() {
 
         override fun doInBackground(vararg voids: Void): List<PhotoBean> {
 
-            val PhotoBeanList = ArrayList<PhotoBean>()
+            val photoBeanList = ArrayList<PhotoBean>()
 
             if (cursor != null) {
                 for (i in 0 until cursor!!.count) {
@@ -125,14 +125,14 @@ class HomeActivity : AppCompatActivity() {
                                 .getColumnIndex(MediaStore.Images.Media._ID))// ID
                         photoBean.thumbs = id.toString() + ""
                         photoBean.imagePaths = filepath
-                        PhotoBeanList.add(photoBean)
+                        photoBeanList.add(photoBean)
                     }
                 }
 
                 cursor!!.close()
             }
 
-            return PhotoBeanList
+            return photoBeanList
         }
 
         override fun onPostExecute(list: List<PhotoBean>) {

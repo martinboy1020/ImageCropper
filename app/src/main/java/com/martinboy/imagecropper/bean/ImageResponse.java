@@ -1,13 +1,4 @@
-/*
- *  Copyright (c) 2019 Mattel, Inc. All rights reserved.
- *  All information and code contained herein is the property of Mattel, Inc.
- *  Any unauthorized use, storage, duplication, and redistribution of this
- *  material without written permission from Mattel, Inc. is strictly prohibited.
- *
- *
- */
-
-package com.martinboy.imagecropper.imgur;
+package com.martinboy.imagecropper.bean;
 
 public class ImageResponse {
     public boolean success;

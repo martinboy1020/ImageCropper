@@ -87,7 +87,7 @@ public class ChoosePhotoJavaActivity extends AppCompatActivity {
         @Override
         protected List<PhotoBean> doInBackground(Void... voids) {
 
-            List<PhotoBean> PhotoBeanList = new ArrayList<>();
+            List<PhotoBean> photoBeanList = new ArrayList<>();
 
             if (cursor != null) {
                 for (int i = 0; i < cursor.getCount(); i++) {
@@ -96,12 +96,15 @@ public class ChoosePhotoJavaActivity extends AppCompatActivity {
                     String filepath = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
 
                     if(!filepath.contains("cropImage_")) {
-                        PhotoBean photoBean = new PhotoBean();
-                        int id = cursor.getInt(cursor
-                                .getColumnIndex(MediaStore.Images.Media._ID));// ID
-                        photoBean.setThumbs(id + "");
-                        photoBean.setImagePaths(filepath);
-                        PhotoBeanList.add(photoBean);
+
+                        if (filepath.endsWith(".jpg") || filepath.endsWith(".png")) {
+                            PhotoBean photoBean = new PhotoBean();
+                            int id = cursor.getInt(cursor
+                                    .getColumnIndex(MediaStore.Images.Media._ID));// ID
+                            photoBean.setThumbs(id + "");
+                            photoBean.setImagePaths(filepath);
+                            photoBeanList.add(photoBean);
+                        }
                     }
 
                 }
@@ -109,7 +112,7 @@ public class ChoosePhotoJavaActivity extends AppCompatActivity {
                 cursor.close();
             }
 
-            return PhotoBeanList;
+            return photoBeanList;
         }
 
         @Override

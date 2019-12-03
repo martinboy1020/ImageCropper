@@ -1,5 +1,7 @@
 package com.martinboy.imagecropper.imgur;
 
+import com.martinboy.imagecropper.bean.ImageResponse;
+
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
