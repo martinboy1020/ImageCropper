@@ -62,7 +62,7 @@
             android:layout_marginStart="50dp"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="50dp"
-            android:background="@drawable/rect_solid_blue_button_bg"
+            android:background="@drawable/rect_solid_gray_button_bg"
             android:gravity="center"
             android:textColor="@android:color/white"
             android:textSize="@dimen/dialog_bottom_btn_text_size" />
@@ -74,7 +74,7 @@
             android:layout_marginStart="50dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="50dp"
-            android:background="@drawable/rect_solid_blue_button_bg"
+            android:background="@drawable/rect_solid_gray_button_bg"
             android:gravity="center"
             android:textColor="@android:color/white"
             android:textSize="@dimen/dialog_bottom_btn_text_size" />

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import com.martinboy.imagecropper.R
 import com.martinboy.imagecropper.adapter.UploadPicHistoryAdapter
 import com.martinboy.imagecropper.bean.ImgurBean
@@ -32,7 +31,7 @@ class UploadPictureHistoryActivity : AppCompatActivity() {
 
     private fun init() {
         dataList = SharePreferenceManager.getUploadImageHistoryList(this)
-        Log.d("tag1", "dataList.size: " + dataList?.size)
+//        Log.d("tag1", "dataList.size: " + dataList?.size)
 
 //        for(b : ImgurBean in (dataList as MutableList<ImgurBean>?)!!) {
 //            Log.d("tag1 b.imgUrl", b.imgUrl)

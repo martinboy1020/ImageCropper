@@ -199,7 +199,7 @@ class HomeActivity : AppCompatActivity() {
             CheckPermissionManager.MULTIPLE_PERMISSIONS -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     checkPermissionSuccess = true
-                    Toast.makeText(this, "Permission Pass, Please Click Again", Toast.LENGTH_SHORT)
+                    Toast.makeText(this, resources.getString(R.string.text_permission_pass), Toast.LENGTH_SHORT)
                             .show()
                 } else {
                     var no_permissions = ""
@@ -207,7 +207,7 @@ class HomeActivity : AppCompatActivity() {
                         no_permissions += "\n" + per
                     }
 
-                    Toast.makeText(this, "Permission Denied: $no_permissions", Toast.LENGTH_SHORT)
+                    Toast.makeText(this, resources.getString(R.string.text_permission_denied), Toast.LENGTH_SHORT)
                             .show()
 
 //                    Toast.makeText(this, "Permission Denied: $no_permissions", Toast.LENGTH_SHORT)

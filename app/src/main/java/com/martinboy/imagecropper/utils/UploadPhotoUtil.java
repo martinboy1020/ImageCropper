@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.widget.Toast;
 
+import com.martinboy.imagecropper.R;
 import com.martinboy.imagecropper.activity.ImageCropperJavaActivity;
 import com.martinboy.imagecropper.activity.ImageCropperKotlinActivity;
 import com.martinboy.imagecropper.bean.PhotoBean;
@@ -106,8 +107,8 @@ public class UploadPhotoUtil {
             }
         }
 
-        for(PhotoBean photoBean : list) {
-            File img = new File(photoBean.getImagePaths());
+        for(int i = 0 ; i < list.size(); i++) {
+            File img = new File(list.get(i).getImagePaths());
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 //                String[] paths = new String[]{Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()};
                 MediaScannerConnection.scanFile(context, new String[]{
@@ -116,10 +117,10 @@ public class UploadPhotoUtil {
                             public void onScanCompleted(String path, Uri uri) {
                             }
                         });
-                Toast.makeText(context, "Clear Temp Image Success", Toast.LENGTH_SHORT).show();
+                if(i == list.size() - 1) Toast.makeText(context, context.getResources().getString(R.string.text_clear_temp_image_success), Toast.LENGTH_SHORT).show();
             } else {
                 context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
-                Toast.makeText(context, "Clear Temp Image Success", Toast.LENGTH_SHORT).show();
+                if(i == list.size() - 1) Toast.makeText(context, context.getResources().getString(R.string.text_clear_temp_image_success), Toast.LENGTH_SHORT).show();
             }
         }
 

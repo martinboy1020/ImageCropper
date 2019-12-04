@@ -16,6 +16,9 @@
     <string name="text_please_you_want_to_do">请选择想要上传的来源</string>
     <string name="text_cropped_pic">从已裁剪的图片选择</string>
     <string name="text_all_pic">从全部的照片选择</string>
+    <string name="text_upload_history">上传记录</string>
+    <string name="text_copy_url_success">复制连结成功</string>
+    <string name="text_clear_temp_image_success">清除暂存图片成功</string>
     <string name="notification_success">图片已上传.</string>
     <string name="notification_progress">上传中&#8230;</string>
     <string name="notification_share_link">图片连结</string>

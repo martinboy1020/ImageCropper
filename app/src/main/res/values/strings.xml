@@ -16,6 +16,9 @@
     <string name="text_please_you_want_to_do">Please choose source you want to upload</string>
     <string name="text_cropped_pic">Choose from cropped pictures</string>
     <string name="text_all_pic">Choose from all pictures</string>
+    <string name="text_upload_history">Upload History</string>
+    <string name="text_copy_url_success">Copy Url Success</string>
+    <string name="text_clear_temp_image_success">Clear Temp Image Success</string>
     <string name="notification_success">Picture uploaded.</string>
     <string name="notification_progress">Uploading&#8230;</string>
     <string name="notification_share_link">Picture link</string>
