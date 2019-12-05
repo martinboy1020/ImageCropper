@@ -26,6 +26,11 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLContext;
 import javax.microedition.khronos.egl.EGLDisplay;
 
+/**
+ * Crop image method reference to this project "Android-Image-Cropper"
+ * https://github.com/ArthurHub/Android-Image-Cropper
+ */
+
 /** Utility class that deals with operations with an ImageView. */
 final class BitmapUtils {
 

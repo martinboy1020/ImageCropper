@@ -34,6 +34,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Crop image method reference to this project "Android-Image-Cropper"
+ * https://github.com/ArthurHub/Android-Image-Cropper
+ */
+
+/**
  * Helper to simplify crop image work like starting pick-image acitvity and handling camera/gallery
  * intents.<br>
  * The goal of the helper is to simplify the starting and most-common usage of image cropping and

@@ -12,6 +12,11 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
 /**
+ * Crop image method reference to this project "Android-Image-Cropper"
+ * https://github.com/ArthurHub/Android-Image-Cropper
+ */
+
+/**
  * All the possible options that can be set to customize crop image.<br>
  * Initialized with default values.
  */

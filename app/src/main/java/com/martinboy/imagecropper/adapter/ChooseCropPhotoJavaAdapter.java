@@ -1,6 +1,7 @@
 package com.martinboy.imagecropper.adapter;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -11,6 +12,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.martinboy.imagecropper.R;
 import com.martinboy.imagecropper.bean.PhotoBean;
 import com.martinboy.imagecropper.fragment.CropImageGalleryFragment;
@@ -57,7 +60,12 @@ public class ChooseCropPhotoJavaAdapter extends RecyclerView.Adapter<ChooseCropP
         holder.img_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                mAct.goToCropPicture(Uri.fromFile(new File(list.get(holder.getAdapterPosition()).getImagePaths())));
+                Glide.with(mAct).load(list.get(holder.getAdapterPosition()).getImagePaths()).asBitmap().into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                        mFragment.uploadPhoto(resource);
+                    }
+                });
             }
         });
     }

@@ -13,6 +13,7 @@ import com.martinboy.imagecropper.R;
 import com.martinboy.imagecropper.activity.ImageCropperJavaActivity;
 import com.martinboy.imagecropper.activity.ImageCropperKotlinActivity;
 import com.martinboy.imagecropper.bean.PhotoBean;
+import com.martinboy.imagecropper.fragment.CropImageGalleryFragment;
 
 import org.apache.commons.io.FileUtils;
 
@@ -139,6 +140,11 @@ public class UploadPhotoUtil {
     public static void uploadImageToImgur(ImageCropperKotlinActivity mAct, File chooseFile) {
         UploadImageManager mUploadImageManager = UploadImageManager.getInstance();
         mUploadImageManager.onUpload(mAct, chooseFile, "", "", "", "", mAct);
+    }
+
+    public static void uploadImageToImgur(CropImageGalleryFragment fragment, File chooseFile) {
+        UploadImageManager mUploadImageManager = UploadImageManager.getInstance();
+        mUploadImageManager.onUpload(fragment.getActivity(), chooseFile, "", "", "", "", fragment);
     }
 
     public static void refreshImageDataBase(Context context, File file) {

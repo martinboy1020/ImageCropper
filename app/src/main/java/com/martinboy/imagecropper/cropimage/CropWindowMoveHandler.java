@@ -5,6 +5,11 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 
 /**
+ * Crop image method reference to this project "Android-Image-Cropper"
+ * https://github.com/ArthurHub/Android-Image-Cropper
+ */
+
+/**
  * Handler to update crop window edges by the move type - Horizontal, Vertical, Corner or Center.
  * <br>
  */

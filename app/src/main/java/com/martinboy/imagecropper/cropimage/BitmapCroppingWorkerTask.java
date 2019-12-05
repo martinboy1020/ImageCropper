@@ -7,6 +7,11 @@ import android.os.AsyncTask;
 
 import java.lang.ref.WeakReference;
 
+/**
+ * Crop image method reference to this project "Android-Image-Cropper"
+ * https://github.com/ArthurHub/Android-Image-Cropper
+ */
+
 /** Task to crop bitmap asynchronously from the UI thread. */
 final class BitmapCroppingWorkerTask
     extends AsyncTask<Void, Void, BitmapCroppingWorkerTask.Result> {

@@ -8,6 +8,11 @@ import android.view.animation.Transformation;
 import android.widget.ImageView;
 
 /**
+ * Crop image method reference to this project "Android-Image-Cropper"
+ * https://github.com/ArthurHub/Android-Image-Cropper
+ */
+
+/**
  * Animation to handle smooth cropping image matrix transformation change, specifically for
  * zoom-in/out.
  */

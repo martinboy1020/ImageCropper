@@ -17,6 +17,11 @@ import android.view.View;
 
 import java.util.Arrays;
 
+/**
+ * Crop image method reference to this project "Android-Image-Cropper"
+ * https://github.com/ArthurHub/Android-Image-Cropper
+ */
+
 /** A custom View representing the crop window and the shaded background outside the crop window. */
 public class CropOverlayView extends View {
 

@@ -81,4 +81,9 @@ class UploadCropImageActivity : AppCompatActivity() {
         trans.commitAllowingStateLoss()
 
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
+
 }

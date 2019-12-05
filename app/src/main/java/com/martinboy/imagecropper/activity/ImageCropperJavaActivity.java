@@ -31,11 +31,13 @@ public class ImageCropperJavaActivity extends AppCompatActivity implements CropI
     private static final String TAG = ImageCropperJavaActivity.class.getSimpleName();
 
     CropImageView mCropImageView;
-    ImageView img_result;
+    ImageView img_result, image_crop_shape, image_aspect_ratio;
     RelativeLayout btn_back;
-    TextView btn_finish;
-    LinearLayout btn_crop_image_rotation;
+    TextView btn_finish, text_crop_shape, text_aspect_ratio;
+    LinearLayout btn_crop_image_rotation, btn_crop_shape, btn_aspect_Ratio;
     ProgressDialog mProgressDialog;
+    boolean isFixedAspectRatio = true;
+    boolean isRect = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,10 +55,18 @@ public class ImageCropperJavaActivity extends AppCompatActivity implements CropI
     private void findView() {
         img_result = findViewById(R.id.img_result);
         mCropImageView = findViewById(R.id.sv_cropImageView);
+        image_crop_shape = findViewById(R.id.image_crop_shape);
+        image_aspect_ratio = findViewById(R.id.image_aspect_ratio);
         btn_crop_image_rotation = findViewById(R.id.sv_btn_crop_image_rotation);
+        btn_crop_shape = findViewById(R.id.sv_btn_crop_shape);
+        btn_aspect_Ratio = findViewById(R.id.sv_btn_aspect_ratio);
         btn_back = findViewById(R.id.sv_btn_back);
         btn_finish = findViewById(R.id.sv_btn_text_finish);
+        text_crop_shape = findViewById(R.id.text_crop_shape);
+        text_aspect_ratio = findViewById(R.id.text_aspect_ratio);
         btn_crop_image_rotation.setOnClickListener(onClickListener);
+        btn_crop_shape.setOnClickListener(onClickListener);
+        btn_aspect_Ratio.setOnClickListener(onClickListener);
         btn_back.setOnClickListener(onClickListener);
         btn_finish.setOnClickListener(onClickListener);
     }
@@ -79,9 +89,14 @@ public class ImageCropperJavaActivity extends AppCompatActivity implements CropI
         }
 
         mCropImageView.setOnSetImageUriCompleteListener(this);
-        mCropImageView.setOnCropImageCompleteListener(this);
+        mCropImageView.setCropShape(CropImageView.CropShape.RECTANGLE);
         // 裁切範圍是否為等比例正方
-        mCropImageView.setFixedAspectRatio(false);
+        mCropImageView.setFixedAspectRatio(true);
+        isFixedAspectRatio = true;
+        isRect = true;
+        mCropImageView.setOnCropImageCompleteListener(this);
+        image_crop_shape.setBackgroundResource(R.drawable.ic_crop_square);
+        text_crop_shape.setText(getResources().getString(R.string.text_crop_rect_shape));
     }
 
     @Override
@@ -91,7 +106,7 @@ public class ImageCropperJavaActivity extends AppCompatActivity implements CropI
 //            Toast.makeText(this, "Image load successful", Toast.LENGTH_SHORT).show();
         } else {
             Log.e(TAG, "Failed to load image by URI", error);
-            Toast.makeText(this, "圖片加載失敗", Toast.LENGTH_LONG)
+            Toast.makeText(this, getResources().getString(R.string.text_load_image_fail), Toast.LENGTH_LONG)
                     .show();
         }
     }
@@ -111,32 +126,32 @@ public class ImageCropperJavaActivity extends AppCompatActivity implements CropI
 
         if(CheckConnectStatusManager.checkNetWorkConnect(this)) {
 
-            Toast.makeText(this, "上傳圖片中", Toast.LENGTH_SHORT).show();
-
             if (cropImgFile != null) {
+                Toast.makeText(this, getResources().getString(R.string.text_during_upload_picture), Toast.LENGTH_SHORT).show();
                 showProgressDialog();
                 UploadPhotoUtil.uploadImageToImgur(this, cropImgFile);
             } else {
                 Log.d("tag1", "No Image File");
+                Toast.makeText(this, getResources().getString(R.string.text_file_error), Toast.LENGTH_SHORT).show();
             }
 
         } else {
-            Toast.makeText(this, "網路未開啟無法上傳", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.text_internet_error_upload), Toast.LENGTH_SHORT).show();
         }
 
     }
 
     private void checkUploadDialog(final Bitmap bitmap) {
         new AlertDialog.Builder(this)
-                .setTitle("剪裁完成")
-                .setMessage("圖片剪裁完成, 是否要上傳圖片到Imgur")
-                .setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                .setTitle(getResources().getString(R.string.text_crop_image_finish))
+                .setMessage(getResources().getString(R.string.text_crop_image_finish_is_upload_or_not))
+                .setPositiveButton(getResources().getString(R.string.text_accept), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         uploadPhoto(bitmap);
                     }
                 })
-                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getResources().getString(R.string.text_cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         File file = UploadPhotoUtil.saveBitmapAndGetImageFile(bitmap);
@@ -158,6 +173,32 @@ public class ImageCropperJavaActivity extends AppCompatActivity implements CropI
             } else if (v.getId() == R.id.sv_btn_text_finish) {
                 showProgressDialog();
                 mCropImageView.getCroppedImageAsync();
+            } else if (v.getId() == R.id.sv_btn_crop_shape) {
+
+                if(isRect) {
+                    isRect = false;
+                    image_crop_shape.setBackgroundResource(R.drawable.ic_circle);
+                    text_crop_shape.setText(getResources().getString(R.string.text_crop_oval_shape));
+                    mCropImageView.setCropShape(CropImageView.CropShape.OVAL);
+                } else {
+                    isRect = true;
+                    image_crop_shape.setBackgroundResource(R.drawable.ic_crop_square);
+                    text_crop_shape.setText(getResources().getString(R.string.text_crop_rect_shape));
+                    mCropImageView.setCropShape(CropImageView.CropShape.RECTANGLE);
+                }
+
+            } else if (v.getId() == R.id.sv_btn_aspect_ratio) {
+
+                if(isFixedAspectRatio) {
+                    isFixedAspectRatio = false;
+                    text_aspect_ratio.setText(getResources().getString(R.string.text_no_fixed_aspect_ratio));
+                    mCropImageView.clearAspectRatio();
+                } else {
+                    isFixedAspectRatio = true;
+                    text_aspect_ratio.setText(getResources().getString(R.string.text_fixed_aspect_ratio));
+                    mCropImageView.setFixedAspectRatio(true);
+                }
+
             }
         }
     };
@@ -172,7 +213,7 @@ public class ImageCropperJavaActivity extends AppCompatActivity implements CropI
             } else {
                 Toast.makeText(
                         this,
-                        "裁剪圖片失敗",
+                        this.getResources().getString(R.string.text_crop_image_fail),
                         Toast.LENGTH_LONG)
                         .show();
             }
@@ -180,7 +221,7 @@ public class ImageCropperJavaActivity extends AppCompatActivity implements CropI
             Log.e(TAG, "Failed to crop image", result.getError());
             Toast.makeText(
                     this,
-                    "裁剪圖片失敗",
+                    this.getResources().getString(R.string.text_crop_image_fail),
                     Toast.LENGTH_LONG)
                     .show();
         }

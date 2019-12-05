@@ -8,6 +8,11 @@ import android.util.DisplayMetrics;
 
 import java.lang.ref.WeakReference;
 
+/**
+ * Crop image method reference to this project "Android-Image-Cropper"
+ * https://github.com/ArthurHub/Android-Image-Cropper
+ */
+
 /** Task to load bitmap asynchronously from the UI thread. */
 final class BitmapLoadingWorkerTask extends AsyncTask<Void, Void, BitmapLoadingWorkerTask.Result> {
 

@@ -2,6 +2,11 @@ package com.martinboy.imagecropper.cropimage;
 
 import android.graphics.RectF;
 
+/**
+ * Crop image method reference to this project "Android-Image-Cropper"
+ * https://github.com/ArthurHub/Android-Image-Cropper
+ */
+
 /** Handler from crop window stuff, moving and knowing possition. */
 final class CropWindowHandler {
 

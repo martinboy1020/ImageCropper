@@ -28,6 +28,11 @@ import com.martinboy.imagecropper.R;
 import java.lang.ref.WeakReference;
 import java.util.UUID;
 
+/**
+ * Crop image method reference to this project "Android-Image-Cropper"
+ * https://github.com/ArthurHub/Android-Image-Cropper
+ */
+
 /** Custom view that provides cropping capabilities to an image. */
 public class CropImageView extends FrameLayout {
 

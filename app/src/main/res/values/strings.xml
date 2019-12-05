@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ImageCropperUploader</string>
+    <string name="app_name">Image Cropper Uploader</string>
     <string name="choose_image_menu">Choose Picture</string>
     <string name="crop_image_menu_rotate_left">Rotate Left</string>
     <string name="crop_image_menu_rotate_right">Rotate Right</string>
@@ -19,6 +19,19 @@
     <string name="text_upload_history">Upload History</string>
     <string name="text_copy_url_success">Copy Url Success</string>
     <string name="text_clear_temp_image_success">Clear Temp Image Success</string>
+    <string name="text_during_upload_picture">text_during_upload_picture</string>
+    <string name="text_file_error">File Error</string>
+    <string name="text_internet_error_upload">Internet is Closed, Cannot Upload</string>
+    <string name="text_crop_image_finish">Crop Image Finish</string>
+    <string name="text_crop_image_finish_is_upload_or_not">Crop Image Finish, Do you want to upload image to Imgur?</string>
+    <string name="text_accept">Accept</string>
+    <string name="text_cancel">Cancel</string>
+    <string name="text_crop_image_fail">Crop Image Fail</string>
+    <string name="text_load_image_fail">Load Image Fail</string>
+    <string name="text_crop_rect_shape">Crop Rect Shape</string>
+    <string name="text_crop_oval_shape">Crop Oval Shape</string>
+    <string name="text_fixed_aspect_ratio">Fixed Aspect Ratio</string>
+    <string name="text_no_fixed_aspect_ratio">No Fixed Aspect Ratio</string>
     <string name="notification_success">Picture uploaded.</string>
     <string name="notification_progress">Uploading&#8230;</string>
     <string name="notification_share_link">Picture link</string>
