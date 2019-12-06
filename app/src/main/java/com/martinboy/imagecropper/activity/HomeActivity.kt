@@ -2,8 +2,8 @@ package com.martinboy.imagecropper.activity
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.ContentResolver
-import android.content.Intent
+import android.app.AlertDialog
+import android.content.*
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.os.AsyncTask
@@ -170,7 +170,6 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun showPreview(uploadImageId : String) {
-//        layoutPreview?.visibility = View.VISIBLE
         val imgDirectUrl = "http://i.imgur.com/$uploadImageId.jpg"
         val sdFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
         val imgurBean = ImgurBean()
@@ -179,19 +178,22 @@ class HomeActivity : AppCompatActivity() {
         imgurBean.uploadDate = sdFormat.format(Date())
         SharePreferenceManager.addUploadImageInHistory(this, imgurBean)
 
-//        textImgDirectUrl?.text = imgDirectUrl
-//        Glide.with(this).load(imgDirectUrl).into(imgPreview)
-//        btnCopy?.setOnClickListener(View.OnClickListener {
-//            if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
-//                val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as android.text.ClipboardManager
-//                clipboard.text = imgDirectUrl
-//            } else {
-//                val clipboard: ClipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-//                val clip : ClipData = ClipData.newPlainText("text label", imgDirectUrl)
-//                clipboard.primaryClip = clip
-//            }
-//            Toast.makeText(this, "Copy Image Link Success", Toast.LENGTH_SHORT).show()
-//        })
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as android.text.ClipboardManager
+            clipboard.text = imgDirectUrl
+        } else {
+            val clipboard: ClipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip: ClipData = ClipData.newPlainText("text label", imgDirectUrl)
+            clipboard.primaryClip = clip
+        }
+
+        AlertDialog.Builder(this)
+                .setTitle(resources.getString(R.string.text_upload_image_finish))
+                .setMessage(resources.getString(R.string.text_upload_image_copy_url) + " " + imgDirectUrl)
+                .setPositiveButton(resources.getString(R.string.text_accept)) { dialog, which ->
+                    dialog.dismiss()
+                }
+                .show()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
