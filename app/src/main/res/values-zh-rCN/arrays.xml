@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="home_list_text">
+
+        <item>裁切图片</item>
+        <item>上传已裁切图片</item>
+        <item>查看上传图片历史</item>
+        <item>清除本机裁切缓存图片</item>
+
+    </string-array>
+
+</resources>

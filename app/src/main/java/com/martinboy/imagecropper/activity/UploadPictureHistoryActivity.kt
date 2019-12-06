@@ -31,10 +31,10 @@ class UploadPictureHistoryActivity : AppCompatActivity() {
 
     private fun init() {
         dataList = SharePreferenceManager.getUploadImageHistoryList(this)
-//        Log.d("tag1", "dataList.size: " + dataList?.size)
+//        LogUtils.d("tag1", "dataList.size: " + dataList?.size)
 
 //        for(b : ImgurBean in (dataList as MutableList<ImgurBean>?)!!) {
-//            Log.d("tag1 b.imgUrl", b.imgUrl)
+//            LogUtils.d("tag1 b.imgUrl", b.imgUrl)
 //        }
 
         if(dataList != null) {

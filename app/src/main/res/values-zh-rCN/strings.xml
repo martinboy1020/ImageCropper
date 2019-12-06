@@ -32,6 +32,8 @@
     <string name="text_crop_oval_shape">剪裁成圆形</string>
     <string name="text_fixed_aspect_ratio">等比例缩放</string>
     <string name="text_no_fixed_aspect_ratio">不要等比例缩放</string>
+    <string name="text_upload_image">上传图片</string>
+    <string name="text_upload_image_content">您是否要上传此张图片到Imgur?</string>
     <string name="notification_success">图片已上传.</string>
     <string name="notification_progress">上传中&#8230;</string>
     <string name="notification_share_link">图片连结</string>

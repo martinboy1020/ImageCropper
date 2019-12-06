@@ -11,6 +11,7 @@ import android.widget.*
 import com.martinboy.imagecropper.R
 import com.martinboy.imagecropper.cropimage.CropImageView
 import com.martinboy.imagecropper.dialog.ProgressDialog
+import com.martinboy.imagecropper.utils.LogUtils
 import com.martinboy.imagecropper.utils.UploadPhotoUtil
 
 class ImageCropperKotlinActivity : AppCompatActivity(), CropImageView.OnSetImageUriCompleteListener, CropImageView.OnCropImageCompleteListener, UploadPhotoUtil.UploadHeadPhotoListener {
@@ -93,7 +94,7 @@ class ImageCropperKotlinActivity : AppCompatActivity(), CropImageView.OnSetImage
         if (cropImgFile != null) {
             UploadPhotoUtil.uploadImageToImgur(this, cropImgFile)
         } else {
-            Log.d("tag1", "No Image File")
+            LogUtils.d("tag1", "No Image File")
             mProgressDialog?.dismissAllowingStateLoss()
         }
     }
@@ -120,11 +121,11 @@ class ImageCropperKotlinActivity : AppCompatActivity(), CropImageView.OnSetImage
     }
 
     override fun onSetImageUriComplete(view: CropImageView?, uri: Uri?, error: Exception?) {
-        Log.d(TAG, "onSetImageUriComplete")
+        LogUtils.d(TAG, "onSetImageUriComplete")
         if (error == null) {
             //            Toast.makeText(this, "Image load successful", Toast.LENGTH_SHORT).show();
         } else {
-            Log.e(TAG, "Failed to load image by URI", error)
+            LogUtils.e(TAG, "Failed to load image by URI", error)
             Toast.makeText(this, "圖片加載失敗", Toast.LENGTH_LONG).show()
         }
     }

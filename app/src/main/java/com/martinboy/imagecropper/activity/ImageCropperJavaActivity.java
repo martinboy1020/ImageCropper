@@ -21,6 +21,7 @@ import com.martinboy.imagecropper.R;
 import com.martinboy.imagecropper.cropimage.CropImageView;
 import com.martinboy.imagecropper.dialog.ProgressDialog;
 import com.martinboy.imagecropper.utils.CheckConnectStatusManager;
+import com.martinboy.imagecropper.utils.LogUtils;
 import com.martinboy.imagecropper.utils.UploadPhotoUtil;
 
 import java.io.File;
@@ -31,10 +32,13 @@ public class ImageCropperJavaActivity extends AppCompatActivity implements CropI
     private static final String TAG = ImageCropperJavaActivity.class.getSimpleName();
 
     CropImageView mCropImageView;
-    ImageView img_result, image_crop_shape, image_aspect_ratio;
+    ImageView img_result, image_aspect_ratio;
+//    ImageView image_crop_shape;
+//    TextView text_crop_shape;
+//    LinearLayout btn_crop_shape;
     RelativeLayout btn_back;
-    TextView btn_finish, text_crop_shape, text_aspect_ratio;
-    LinearLayout btn_crop_image_rotation, btn_crop_shape, btn_aspect_Ratio;
+    TextView btn_finish, text_aspect_ratio;
+    LinearLayout btn_crop_image_rotation, btn_aspect_Ratio;
     ProgressDialog mProgressDialog;
     boolean isFixedAspectRatio = true;
     boolean isRect = true;
@@ -55,17 +59,17 @@ public class ImageCropperJavaActivity extends AppCompatActivity implements CropI
     private void findView() {
         img_result = findViewById(R.id.img_result);
         mCropImageView = findViewById(R.id.sv_cropImageView);
-        image_crop_shape = findViewById(R.id.image_crop_shape);
+//        image_crop_shape = findViewById(R.id.image_crop_shape);
         image_aspect_ratio = findViewById(R.id.image_aspect_ratio);
         btn_crop_image_rotation = findViewById(R.id.sv_btn_crop_image_rotation);
-        btn_crop_shape = findViewById(R.id.sv_btn_crop_shape);
+//        btn_crop_shape = findViewById(R.id.sv_btn_crop_shape);
         btn_aspect_Ratio = findViewById(R.id.sv_btn_aspect_ratio);
         btn_back = findViewById(R.id.sv_btn_back);
         btn_finish = findViewById(R.id.sv_btn_text_finish);
-        text_crop_shape = findViewById(R.id.text_crop_shape);
+//        text_crop_shape = findViewById(R.id.text_crop_shape);
         text_aspect_ratio = findViewById(R.id.text_aspect_ratio);
         btn_crop_image_rotation.setOnClickListener(onClickListener);
-        btn_crop_shape.setOnClickListener(onClickListener);
+//        btn_crop_shape.setOnClickListener(onClickListener);
         btn_aspect_Ratio.setOnClickListener(onClickListener);
         btn_back.setOnClickListener(onClickListener);
         btn_finish.setOnClickListener(onClickListener);
@@ -95,17 +99,17 @@ public class ImageCropperJavaActivity extends AppCompatActivity implements CropI
         isFixedAspectRatio = true;
         isRect = true;
         mCropImageView.setOnCropImageCompleteListener(this);
-        image_crop_shape.setBackgroundResource(R.drawable.ic_crop_square);
-        text_crop_shape.setText(getResources().getString(R.string.text_crop_rect_shape));
+//        image_crop_shape.setBackgroundResource(R.drawable.ic_crop_square);
+//        text_crop_shape.setText(getResources().getString(R.string.text_crop_rect_shape));
     }
 
     @Override
     public void onSetImageUriComplete(CropImageView view, Uri uri, Exception error) {
-        Log.d(TAG, "onSetImageUriComplete");
+        LogUtils.d(TAG, "onSetImageUriComplete");
         if (error == null) {
 //            Toast.makeText(this, "Image load successful", Toast.LENGTH_SHORT).show();
         } else {
-            Log.e(TAG, "Failed to load image by URI", error);
+            LogUtils.e(TAG, "Failed to load image by URI", error);
             Toast.makeText(this, getResources().getString(R.string.text_load_image_fail), Toast.LENGTH_LONG)
                     .show();
         }
@@ -131,7 +135,7 @@ public class ImageCropperJavaActivity extends AppCompatActivity implements CropI
                 showProgressDialog();
                 UploadPhotoUtil.uploadImageToImgur(this, cropImgFile);
             } else {
-                Log.d("tag1", "No Image File");
+                LogUtils.d("tag1", "No Image File");
                 Toast.makeText(this, getResources().getString(R.string.text_file_error), Toast.LENGTH_SHORT).show();
             }
 
@@ -173,19 +177,19 @@ public class ImageCropperJavaActivity extends AppCompatActivity implements CropI
             } else if (v.getId() == R.id.sv_btn_text_finish) {
                 showProgressDialog();
                 mCropImageView.getCroppedImageAsync();
-            } else if (v.getId() == R.id.sv_btn_crop_shape) {
-
-                if(isRect) {
-                    isRect = false;
-                    image_crop_shape.setBackgroundResource(R.drawable.ic_circle);
-                    text_crop_shape.setText(getResources().getString(R.string.text_crop_oval_shape));
-                    mCropImageView.setCropShape(CropImageView.CropShape.OVAL);
-                } else {
-                    isRect = true;
-                    image_crop_shape.setBackgroundResource(R.drawable.ic_crop_square);
-                    text_crop_shape.setText(getResources().getString(R.string.text_crop_rect_shape));
-                    mCropImageView.setCropShape(CropImageView.CropShape.RECTANGLE);
-                }
+//            } else if (v.getId() == R.id.sv_btn_crop_shape) {
+//
+//                if(isRect) {
+//                    isRect = false;
+//                    image_crop_shape.setBackgroundResource(R.drawable.ic_circle);
+//                    text_crop_shape.setText(getResources().getString(R.string.text_crop_oval_shape));
+//                    mCropImageView.setCropShape(CropImageView.CropShape.OVAL);
+//                } else {
+//                    isRect = true;
+//                    image_crop_shape.setBackgroundResource(R.drawable.ic_crop_square);
+//                    text_crop_shape.setText(getResources().getString(R.string.text_crop_rect_shape));
+//                    mCropImageView.setCropShape(CropImageView.CropShape.RECTANGLE);
+//                }
 
             } else if (v.getId() == R.id.sv_btn_aspect_ratio) {
 

@@ -32,6 +32,8 @@
     <string name="text_crop_oval_shape">Crop Oval Shape</string>
     <string name="text_fixed_aspect_ratio">Fixed Aspect Ratio</string>
     <string name="text_no_fixed_aspect_ratio">No Fixed Aspect Ratio</string>
+    <string name="text_upload_image">Upload Image</string>
+    <string name="text_upload_image_content">Would you want to upload this image to Imgur?</string>
     <string name="notification_success">Picture uploaded.</string>
     <string name="notification_progress">Uploading&#8230;</string>
     <string name="notification_share_link">Picture link</string>

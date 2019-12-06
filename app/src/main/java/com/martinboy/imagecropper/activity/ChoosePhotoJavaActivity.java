@@ -12,13 +12,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.martinboy.imagecropper.R;
 import com.martinboy.imagecropper.adapter.ChoosePhotoJavaAdapter;
 import com.martinboy.imagecropper.bean.PhotoBean;
+import com.martinboy.imagecropper.utils.LogUtils;
 import com.martinboy.imagecropper.utils.PhotoItemDecoration;
 
 import java.util.ArrayList;
@@ -59,7 +59,7 @@ public class ChoosePhotoJavaActivity extends AppCompatActivity {
     }
 
     private void setList(List<PhotoBean> list) {
-        Log.d(TAG, "PhotoBeanList Size: " + list.size());
+        LogUtils.d(TAG, "PhotoBeanList Size: " + list.size());
         adapter = new ChoosePhotoJavaAdapter(this, list, spanCount, leftRight, topBottom);
         recycler_view_choose_photo.setAdapter(adapter);
     }

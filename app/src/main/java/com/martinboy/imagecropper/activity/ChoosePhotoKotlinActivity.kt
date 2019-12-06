@@ -11,12 +11,12 @@ import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import android.widget.RelativeLayout
 import com.martinboy.imagecropper.R
 import com.martinboy.imagecropper.adapter.ChoosePhotoKotlinAdapter
 import com.martinboy.imagecropper.bean.PhotoBean
+import com.martinboy.imagecropper.utils.LogUtils
 import com.martinboy.imagecropper.utils.PhotoItemDecoration
 import java.util.*
 
@@ -44,7 +44,7 @@ class ChoosePhotoKotlinActivity : AppCompatActivity() {
     }
 
     private fun setList(list: List<PhotoBean>) {
-        Log.d(TAG, "PhotoBeanList Size: " + list.size)
+        LogUtils.d(TAG, "PhotoBeanList Size: " + list.size)
         adapter = ChoosePhotoKotlinAdapter(this, list, spanCount, leftRight, topBottom)
         recycler_view_choose_photo?.adapter = adapter
     }

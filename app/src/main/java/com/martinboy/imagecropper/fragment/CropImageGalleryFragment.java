@@ -2,7 +2,9 @@ package com.martinboy.imagecropper.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -14,7 +16,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.martinboy.imagecropper.bean.ImgurBean;
 import com.martinboy.imagecropper.bean.PhotoBean;
 import com.martinboy.imagecropper.dialog.ProgressDialog;
 import com.martinboy.imagecropper.utils.CheckConnectStatusManager;
+import com.martinboy.imagecropper.utils.LogUtils;
 import com.martinboy.imagecropper.utils.PhotoItemDecoration;
 import com.martinboy.imagecropper.utils.SharePreferenceManager;
 import com.martinboy.imagecropper.utils.UploadPhotoUtil;
@@ -89,7 +91,7 @@ public class CropImageGalleryFragment extends Fragment implements UploadPhotoUti
     }
 
     private void setList(List<PhotoBean> list) {
-        Log.d(TAG, "PhotoBeanList Size: " + list.size());
+        LogUtils.d(TAG, "PhotoBeanList Size: " + list.size());
         adapter = new ChooseCropPhotoJavaAdapter(this, list, spanCount, leftRight, topBottom);
         recycler_view_choose_photo.setAdapter(adapter);
     }
@@ -164,24 +166,39 @@ public class CropImageGalleryFragment extends Fragment implements UploadPhotoUti
         }
     }
 
-    public void uploadPhoto(Bitmap bitmap) {
+    public void uploadPhoto(final Bitmap bitmap) {
 
-        File cropImgFile = UploadPhotoUtil.saveBitmapAndGetImageFile(bitmap);
+        new AlertDialog.Builder(getActivity())
+                .setTitle(getResources().getString(R.string.text_upload_image))
+                .setMessage(getResources().getString(R.string.text_upload_image_content))
+                .setPositiveButton(getResources().getString(R.string.text_accept), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        File cropImgFile = UploadPhotoUtil.saveBitmapAndGetImageFile(bitmap);
 
-        if(CheckConnectStatusManager.checkNetWorkConnect(getActivity())) {
+                        if(CheckConnectStatusManager.checkNetWorkConnect(getActivity())) {
 
-            if (cropImgFile != null) {
-                Toast.makeText(getActivity(), getResources().getString(R.string.text_during_upload_picture), Toast.LENGTH_SHORT).show();
-                showProgressDialog();
-                UploadPhotoUtil.uploadImageToImgur(this, cropImgFile);
-            } else {
-                Log.d("tag1", "No Image File");
-                Toast.makeText(getActivity(), getResources().getString(R.string.text_file_error), Toast.LENGTH_SHORT).show();
-            }
+                            if (cropImgFile != null) {
+                                Toast.makeText(getActivity(), getResources().getString(R.string.text_during_upload_picture), Toast.LENGTH_SHORT).show();
+                                showProgressDialog();
+                                UploadPhotoUtil.uploadImageToImgur(CropImageGalleryFragment.this, cropImgFile);
+                            } else {
+                                LogUtils.d("tag1", "No Image File");
+                                Toast.makeText(getActivity(), getResources().getString(R.string.text_file_error), Toast.LENGTH_SHORT).show();
+                            }
 
-        } else {
-            Toast.makeText(getActivity(), getResources().getString(R.string.text_internet_error_upload), Toast.LENGTH_SHORT).show();
-        }
+                        } else {
+                            Toast.makeText(getActivity(), getResources().getString(R.string.text_internet_error_upload), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .setNegativeButton(getResources().getString(R.string.text_cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
 
     }
 

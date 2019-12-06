@@ -23,10 +23,10 @@ class UploadCropImageActivity : AppCompatActivity() {
         val frag: Fragment = nextFragmentClass.newInstance()
         val tag: String = nextFragmentClass.simpleName
 
-//        Log.d("tag1", "trans $trans")
-//        Log.d("tag1", "frag $frag")
-//        Log.d("tag1", "tag $tag")
-//        Log.d("tag1", "needStack $needStack")
+//        LogUtils.d("tag1", "trans $trans")
+//        LogUtils.d("tag1", "frag $frag")
+//        LogUtils.d("tag1", "tag $tag")
+//        LogUtils.d("tag1", "needStack $needStack")
 
         trans.setCustomAnimations(R.anim.poc_fade_entry_from_right, R.anim.poc_fade_exit_from_left,
                 R.anim.poc_fade_entry_from_left, R.anim.poc_fade_exit_from_right)
@@ -50,11 +50,11 @@ class UploadCropImageActivity : AppCompatActivity() {
         val frag: Fragment = nextFragmentClass.newInstance()
         val tag: String = nextFragmentClass.simpleName
 
-//        Log.d("tag1", "trans $trans")
-//        Log.d("tag1", "frag $frag")
-//        Log.d("tag1", "tag $tag")
-//        Log.d("tag1", "args $args")
-//        Log.d("tag1", "needStack $needStack")
+//        LogUtils.d("tag1", "trans $trans")
+//        LogUtils.d("tag1", "frag $frag")
+//        LogUtils.d("tag1", "tag $tag")
+//        LogUtils.d("tag1", "args $args")
+//        LogUtils.d("tag1", "needStack $needStack")
 
         trans.setCustomAnimations(R.anim.poc_fade_entry_from_right, R.anim.poc_fade_exit_from_left,
                 R.anim.poc_fade_entry_from_left, R.anim.poc_fade_exit_from_right)

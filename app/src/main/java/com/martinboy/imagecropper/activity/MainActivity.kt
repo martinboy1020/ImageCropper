@@ -268,12 +268,12 @@ class MainActivity : AppCompatActivity() {
 //
 //        val stringJson : String = GsonUtil.ArrayListToJson(list)
 //
-//        Log.d("tag1 testConvertGson", stringJson)
+//        LogUtils.d("tag1 testConvertGson", stringJson)
 //
 //        val listType = object : TypeToken<List<ImgurBean>>() { }.type
 //        val covertList = GsonUtil.JsonToArrayList(stringJson, listType) as? List<ImgurBean>
 //
-//        Log.d("tag1 covertList.siz", covertList?.size.toString())
+//        LogUtils.d("tag1 covertList.siz", covertList?.size.toString())
 //
 //    }
 
