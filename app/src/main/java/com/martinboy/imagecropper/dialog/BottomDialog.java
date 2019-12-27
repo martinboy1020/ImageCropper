@@ -22,19 +22,19 @@ import com.martinboy.imagecropper.R;
 
 import java.lang.reflect.Field;
 
-public class BottonSheetDialog extends DialogFragment {
+public class BottomDialog extends DialogFragment {
 
     private Activity mAct;
     private static final Class clz = DialogFragment.class;
 
-    public static String TAG = BottonSheetDialog.class.getSimpleName();
-    private static BottonSheetDialog dialog;
+    public static String TAG = BottomDialog.class.getSimpleName();
+    private static BottomDialog dialog;
 
-    public static BottonSheetDialog instance() {
+    public static BottomDialog instance() {
         if (dialog == null) {
-            synchronized (BottonSheetDialog.class) {
+            synchronized (BottomDialog.class) {
                 if (dialog == null) {
-                    dialog = new BottonSheetDialog();
+                    dialog = new BottomDialog();
                 }
             }
         }
@@ -172,7 +172,7 @@ public class BottonSheetDialog extends DialogFragment {
             }
 
             FragmentTransaction ft = manager.beginTransaction();
-            ft.add(BottonSheetDialog.this, tag);
+            ft.add(BottomDialog.this, tag);
             ft.commitAllowingStateLoss();
         }
 

@@ -36,6 +36,8 @@
     <string name="text_upload_image_content">Would you want to upload this image to Imgur?</string>
     <string name="text_upload_image_finish">Upload Image Finish</string>
     <string name="text_upload_image_copy_url">Image Url has been copied, Url:</string>
+    <string name="text_clean_temp_image">Clean Temp Crop Image</string>
+    <string name="text_clean_temp_image_content">Do you want to clear temp crop image?</string>
     <string name="notification_success">Picture uploaded.</string>
     <string name="notification_progress">Uploading&#8230;</string>
     <string name="notification_share_link">Picture link</string>

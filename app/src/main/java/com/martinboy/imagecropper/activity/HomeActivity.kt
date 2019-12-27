@@ -19,7 +19,7 @@ import com.martinboy.imagecropper.adapter.HomeListAdapter
 import com.martinboy.imagecropper.bean.ImgurBean
 import com.martinboy.imagecropper.bean.PhotoBean
 import com.martinboy.imagecropper.custom_ui.SpacesItemDecoration
-import com.martinboy.imagecropper.dialog.BottonSheetDialog
+import com.martinboy.imagecropper.dialog.BottomDialog
 import com.martinboy.imagecropper.utils.CheckPermissionManager
 import com.martinboy.imagecropper.utils.SharePreferenceManager
 import com.martinboy.imagecropper.utils.UploadPhotoUtil
@@ -69,13 +69,13 @@ class HomeActivity : AppCompatActivity() {
                     startActivityForResult(Intent().setClass(this, ChoosePhotoJavaActivity::class.java), FINISH_UPLOAD_PHOTO)
                 }
                 1 -> {
-                    showBottonDialog()
+                    showBottomDialog()
                 }
                 2 -> {
                     startActivity(Intent().setClass(this, UploadPictureHistoryActivity::class.java))
                 }
                 else -> {
-                    clearTempImage()
+                    showCleanTempDialog()
                 }
             }
         } else {
@@ -137,35 +137,39 @@ class HomeActivity : AppCompatActivity() {
 
         override fun onPostExecute(list: List<PhotoBean>) {
             super.onPostExecute(list)
-            UploadPhotoUtil.deleteTempFile(mAct, list)
+            if(list.isNotEmpty()) {
+                UploadPhotoUtil.deleteTempFile(mAct, list)
+            } else {
+                Toast.makeText(mAct, mAct.resources.getString(R.string.text_clear_temp_image_success), Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
-    private fun showBottonDialog() {
+    private fun showBottomDialog() {
 
         var intent = Intent()
         intent.setClass(this, UploadCropImageActivity::class.java)
         var bundle = Bundle()
 
-        var bottonSheetDialog : BottonSheetDialog = BottonSheetDialog.instance()
-        bottonSheetDialog.setWarningDialog(this, -1,
+        var bottomDialog : BottomDialog = BottomDialog.instance()
+        bottomDialog.setWarningDialog(this, -1,
                 resources.getString(R.string.text_please_you_want_to_do),
                 "",
                 resources.getString(R.string.text_cropped_pic),
                 resources.getString(R.string.text_all_pic),
                 {
-                    bottonSheetDialog.dismiss()
+                    bottomDialog.dismiss()
                     bundle.putInt("choose source", 1)
                     intent.putExtras(bundle)
                     startActivity(intent)
                 },
                 {
-                    bottonSheetDialog.dismiss()
+                    bottomDialog.dismiss()
                     bundle.putInt("choose source", 2)
                     intent.putExtras(bundle)
                     startActivity(intent)
                 })
-        bottonSheetDialog.showAllowingStateLoss(supportFragmentManager, BottonSheetDialog.TAG)
+        bottomDialog.showAllowingStateLoss(supportFragmentManager, BottomDialog.TAG)
 
     }
 
@@ -218,6 +222,20 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun showCleanTempDialog() {
+        AlertDialog.Builder(this)
+                .setTitle(resources.getString(R.string.text_clean_temp_image))
+                .setMessage(resources.getString(R.string.text_clean_temp_image_content))
+                .setPositiveButton(resources.getString(R.string.text_accept)) { dialog, which ->
+                    clearTempImage()
+                    dialog.dismiss()
+                }
+                .setNegativeButton(resources.getString(R.string.text_cancel)) { dialog, which ->
+                    dialog.dismiss()
+                }
+                .show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

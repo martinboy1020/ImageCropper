@@ -34,6 +34,10 @@
     <string name="text_no_fixed_aspect_ratio">不要等比例缩放</string>
     <string name="text_upload_image">上传图片</string>
     <string name="text_upload_image_content">您是否要上传此张图片到Imgur?</string>
+    <string name="text_upload_image_finish">上传图片完成</string>
+    <string name="text_upload_image_copy_url">图片连结已复制, 连结:</string>
+    <string name="text_clean_temp_image">清除暂存裁切图片</string>
+    <string name="text_clean_temp_image_content">你想要清除掉暂存的裁切图片吗?</string>
     <string name="notification_success">图片已上传.</string>
     <string name="notification_progress">上传中&#8230;</string>
     <string name="notification_share_link">图片连结</string>
