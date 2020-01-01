@@ -35,7 +35,7 @@
     <string name="text_upload_image">上傳圖片</string>
     <string name="text_upload_image_content">您是否要上傳此張圖片到Imgur?</string>
     <string name="text_upload_image_finish">上傳圖片完成</string>
-    <string name="text_upload_image_copy_url">图片连结已复制, 连结:</string>
+    <string name="text_upload_image_copy_url">圖片連結已複製, 連結:</string>
     <string name="text_clean_temp_image">清除暫存裁切圖片</string>
     <string name="text_clean_temp_image_content">你想要清除掉暫存的裁切圖片嗎?</string>
     <string name="notification_success">圖片已上傳.</string>
