@@ -14,7 +14,7 @@ public class ImageRepository {
     private List<ImageEntity> mUsers;
 
     public ImageRepository(Application application){
-        mImageDao = AppDatabase.getInstance(application).getUserDao();
+        mImageDao = AppDatabase.getInstance(application).getImageDao();
         mLiveUsers = mImageDao.getAllLiveData();
         mUsers = mImageDao.getAll();
     }
