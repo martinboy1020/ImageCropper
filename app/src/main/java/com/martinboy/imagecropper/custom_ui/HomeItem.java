@@ -1,7 +1,6 @@
 package com.martinboy.imagecropper.custom_ui;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
@@ -9,6 +8,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.martinboy.imagecropper.R;
+
+import androidx.annotation.Nullable;
 
 public class HomeItem extends LinearLayout {
 

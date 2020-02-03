@@ -9,9 +9,9 @@ import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.martinboy.imagecropper.R
 import com.martinboy.imagecropper.bean.ImgurBean

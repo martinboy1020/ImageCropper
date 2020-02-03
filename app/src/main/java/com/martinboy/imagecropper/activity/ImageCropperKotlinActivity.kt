@@ -4,10 +4,10 @@ import android.app.Activity
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import com.martinboy.imagecropper.R
 import com.martinboy.imagecropper.cropimage.CropImageView
 import com.martinboy.imagecropper.dialog.ProgressDialog

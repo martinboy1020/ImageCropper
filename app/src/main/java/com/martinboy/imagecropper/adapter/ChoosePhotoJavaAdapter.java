@@ -1,8 +1,6 @@
 package com.martinboy.imagecropper.adapter;
 
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +15,9 @@ import com.martinboy.imagecropper.bean.PhotoBean;
 
 import java.io.File;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ChoosePhotoJavaAdapter extends RecyclerView.Adapter<ChoosePhotoJavaAdapter.ViewHolder> {
 

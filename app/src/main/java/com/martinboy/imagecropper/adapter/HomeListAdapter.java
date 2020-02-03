@@ -1,13 +1,14 @@
 package com.martinboy.imagecropper.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.martinboy.imagecropper.R;
 import com.martinboy.imagecropper.activity.HomeActivity;
 import com.martinboy.imagecropper.custom_ui.HomeItem;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHolder> {
 

@@ -6,9 +6,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,6 +22,10 @@ import com.martinboy.imagecropper.utils.LogUtils;
 import com.martinboy.imagecropper.utils.UploadPhotoUtil;
 
 import java.io.File;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 public class ImageCropperJavaActivity extends AppCompatActivity implements CropImageView.OnSetImageUriCompleteListener, UploadPhotoUtil.UploadHeadPhotoListener,
         CropImageView.OnCropImageCompleteListener {

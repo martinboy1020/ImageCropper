@@ -1,12 +1,12 @@
 package com.martinboy.imagecropper.adapter
 
 import android.net.Uri
-import android.support.v7.widget.RecyclerView
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.martinboy.imagecropper.R
 import com.martinboy.imagecropper.activity.ChoosePhotoKotlinActivity

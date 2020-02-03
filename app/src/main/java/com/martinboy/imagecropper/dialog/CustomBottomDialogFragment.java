@@ -2,11 +2,11 @@ package com.martinboy.imagecropper.dialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.View;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.martinboy.imagecropper.R;
 
 public class CustomBottomDialogFragment extends BottomSheetDialogFragment {

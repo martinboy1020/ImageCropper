@@ -1,7 +1,6 @@
 package com.martinboy.imagecropper.utils;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -11,6 +10,7 @@ import com.martinboy.imagecropper.imgur.NotificationHelper;
 
 import java.io.File;
 
+import androidx.annotation.NonNull;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
