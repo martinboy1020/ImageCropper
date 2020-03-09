@@ -8,7 +8,6 @@ import android.graphics.BitmapRegionDecoder;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.util.Log;
 import android.util.Pair;
@@ -25,6 +24,8 @@ import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLContext;
 import javax.microedition.khronos.egl.EGLDisplay;
+
+import androidx.exifinterface.media.ExifInterface;
 
 /**
  * Crop image method reference to this project "Android-Image-Cropper"

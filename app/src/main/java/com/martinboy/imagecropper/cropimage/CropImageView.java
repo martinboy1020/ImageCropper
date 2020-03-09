@@ -9,7 +9,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,6 +26,8 @@ import com.martinboy.imagecropper.R;
 
 import java.lang.ref.WeakReference;
 import java.util.UUID;
+
+import androidx.exifinterface.media.ExifInterface;
 
 /**
  * Crop image method reference to this project "Android-Image-Cropper"
